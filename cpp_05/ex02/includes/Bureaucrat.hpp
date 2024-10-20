@@ -2,12 +2,12 @@
 #define BUREAUCRAT_HPP
 
 #include <iostream>
-#include "Form.hpp"
+#include "AForm.hpp"
 #define RED "\033[31m"
 #define GREEN "\033[32m"
 #define RESET "\033[0m"
 
-class Form;
+class AForm;
 
 class Bureaucrat {
     private:
@@ -38,7 +38,7 @@ class Bureaucrat {
 
         void    incrementGrade();
         void    decrementGrade();
-        void    signForm(Form &Form);
+        void    signForm(AForm &Form);
 } ;
 
 std::ostream& operator<<(std::ostream& ostream, const Bureaucrat& Bureaucrat);

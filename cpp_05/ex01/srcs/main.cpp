@@ -18,18 +18,39 @@ int main(void)
     }
 
     std::cout << std::endl << std::endl;
-    // SIGN FORM TESTS
-    std::cout << GREEN << "------ TESTS FOR SIGN FORMS --------" << RESET << std::endl;
+    // SIGN FORM TEST "beSigned"
+    std::cout << GREEN << "------ TESTS FOR SIGN FORMS \"beSigned\" --------" << RESET << std::endl;
     {
         try
         {
-            Bureaucrat Hamilton("Hamilton", 100);
+            Bureaucrat Hamilton("Hamilton", 12);
             Form       driversForm("Drivers", 50, 50);
             driversForm.beSigned(Hamilton);
         }
         catch(const std::exception& e)
         {
-            std::cerr << e.what() << '\n';
+            std::cerr << e.what() << std::endl;
         }
+    }
+
+    std::cout << std::endl << std::endl;
+    // SIGN FORM TEST "beSigned"
+    std::cout << GREEN << "------ TESTS FOR SIGN FORMS \"signForm\" --------" << RESET << std::endl;
+
+    {
+        try
+        {
+            Bureaucrat studentX("Student X", 50);
+            Bureaucrat studentY("Student Y", 80);
+            Form       studentsForm("Students", 50, 20);
+
+            studentX.signForm(studentsForm);
+            studentY.signForm(studentsForm);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+        
     }
 }

@@ -74,7 +74,7 @@ void    Bureaucrat::decrementGrade() {
     std::cout << *this << std::endl;
 }
 
-void    Bureaucrat::signForm(Form &Form) {
+void    Bureaucrat::signForm(AForm &Form) {
     if (Form.getSignStatus())
     {
         std::cout << RED << this->_name << " couldn't sign " << Form.getName() <<

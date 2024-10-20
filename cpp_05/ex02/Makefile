@@ -1,4 +1,4 @@
-SRCS = srcs/main.cpp srcs/Bureaucrat.cpp srcs/AForm.cpp
+SRCS = srcs/main.cpp srcs/Bureaucrat.cpp srcs/AForm.cpp srcs/ShrubberyCreationForm.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

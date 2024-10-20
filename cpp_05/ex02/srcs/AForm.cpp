@@ -98,6 +98,7 @@ void    AForm::execute(const Bureaucrat &executer)
 {
     if (!this->_isSigned)
         throw AForm::FormNotSigned();
-    if (this->_gradeToExec > executer.getGrade())
+    if (this->_gradeToExec < executer.getGrade())
         throw AForm::GradeTooLowException();
+    this->doExecution(executer);
 }

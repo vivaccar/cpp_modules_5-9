@@ -1,19 +1,92 @@
 #include "../includes/ShrubberyCreationForm.hpp"
+#include "../includes/RobotomyRequestForm.hpp"
+#include "../includes/PresidentialPardonForm.hpp"
 
 int main(void)
 {
-    try
     {
-        AForm   *a = new ShrubberyCreationForm("Lula");
-        Bureaucrat *b = new Bureaucrat("Bolsonaro", 20);
-        a->beSigned(*b);
-        a->execute(*b);
-        delete a;
-        delete b;
+        std::cout << GREEN << "------ TESTS FOR SHRUBBERYFORM --------\n" << RESET << std::endl;
+        AForm       *formA = new ShrubberyCreationForm("tree1");
+        
+        try
+        {
+            Bureaucrat  student("Student", 150);
+            Bureaucrat  teacher("Teacher", 137);
+            teacher.signForm(*formA);
+            teacher.executeForm(*formA);
+            student.executeForm(*formA);
+            teacher.executeForm(*formA);
+            std::cout << std::endl;
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+        delete formA;
     }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << std::endl;
-    }
+
+    std::cout << std::endl << std::endl;
     
+    {
+        std::cout << GREEN << "------ TESTS FOR ROBOTOMYFORM --------\n" << RESET << std::endl;
+        AForm   *formB = new RobotomyRequestForm("Printer");
+
+        try
+        {
+            Bureaucrat  emploeyee("Employeer", 120);
+            Bureaucrat  manager("Manager", 45);
+            manager.signForm(*formB);
+            manager.executeForm(*formB);
+            manager.executeForm(*formB);
+
+            emploeyee.signForm(*formB);
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+        delete formB;
+    }
+
+    std::cout << std::endl << std::endl;
+
+    {
+        std::cout << GREEN << "------ TESTS FOR PRESIDENTIALFORM --------\n" << RESET << std::endl;
+        AForm *formC = new PresidentialPardonForm("Prisioner");
+        try
+        {
+            Bureaucrat  secretary("Secretary", 60);
+            Bureaucrat  president("President", 5);
+            president.signForm(*formC);
+            secretary.executeForm(*formC);
+            president.executeForm(*formC);
+        }
+        catch (const std::exception& e)
+        {
+            std::cerr << e.what() << std::endl;
+        }
+        delete formC;
+    }
+
+    std::cout << std::endl << std::endl;
+
+/*  {
+        std::cout << GREEN << "------ SOME POLYMORPHISM AND COPY TESTS --------\n" << RESET << std::endl;
+        AForm *form = new ShrubberyCreationForm("tree");
+        AForm *formb = new RobotomyRequestForm("Packing");
+        formb->setSignStatus(true);
+        *form = *formb;
+
+        delete form;
+        delete formb;
+        
+        Bureaucrat  bureaucrat("Politician", 1);
+        ShrubberyCreationForm shOne("NEYMAR");
+        bureaucrat.signForm(shOne);
+        ShrubberyCreationForm shTwo(shOne);
+
+
+
+        bureaucrat.executeForm(shTwo);
+    } */
 }

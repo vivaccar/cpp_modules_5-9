@@ -2,7 +2,7 @@ SRCS = srcs/main.cpp srcs/Bureaucrat.cpp srcs/AForm.cpp srcs/ShrubberyCreationFo
 
 OBJS = $(SRCS:.cpp=.o)
 
-NAME = ex02
+NAME = ex03
 
 CC = c++
 

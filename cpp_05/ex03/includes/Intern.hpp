@@ -6,6 +6,6 @@ class Intern {
         Intern(const Intern &other);
         ~Intern();
 
-        Intern &operator=(const Intern &other);
-        AForm  *makeForm(const std::string &formName, const std::string &target);
+        Intern  &operator=(const Intern &other);
+        AForm   *makeForm(const std::string &formName, const std::string &target);
 };

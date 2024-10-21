@@ -20,6 +20,22 @@ Intern& Intern::operator=(const Intern &other) {
 }
 
 
-AForm   *Intern::makeForm(const std::string &fileName, const std::string &target) {
-    return ();
+AForm   *makePresidentialPardonForm(const std::string &target)
+{
+    return (new PresidentialPardonForm(target));
 }
+
+AForm   *makeRobotomyRequestForm(const std::string &target)
+{
+    return (new RobotomyRequestForm(target));
+}
+
+AForm   *makeShrubberyCreationForm(const std::string &target)
+{
+    return (new ShrubberyCreationForm(target));
+}
+
+AForm   *Intern::makeForm(const std::string &fileName, const std::string &target) {
+    AForm (*members_ptr[3])(const std::string &target) = {&makePresidentialPardonForm, &makeRobotomyRequestForm, &makeShrubberyCreationForm};
+}
+

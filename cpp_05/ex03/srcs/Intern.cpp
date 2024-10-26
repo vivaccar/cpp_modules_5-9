@@ -9,6 +9,7 @@ Intern::Intern() {
 }
 
 Intern::Intern(const Intern &other) {
+    (void) other;
     std::cout << GREEN << "INTERN COPY CONSTRUCTOR CALLED" << RESET << std::endl;
 }
 
@@ -36,6 +37,19 @@ AForm   *makeShrubberyCreationForm(const std::string &target)
 }
 
 AForm   *Intern::makeForm(const std::string &fileName, const std::string &target) {
-    AForm (*members_ptr[3])(const std::string &target) = {&makePresidentialPardonForm, &makeRobotomyRequestForm, &makeShrubberyCreationForm};
+    AForm* (*members_ptr[3])(const std::string &target) = {&makePresidentialPardonForm, &makeRobotomyRequestForm, &makeShrubberyCreationForm};
+
+    const std::string formName[3]= {"presidential pardon", "robotomy request", "shrubbery creation"};
+
+    for (int i = 0; i < 3; i++)
+    {
+        if (fileName == formName[i])
+        {
+            std::cout << GREEN "Intern creates " << fileName << RESET << std::endl; 
+            return (members_ptr[i](target));
+        }
+    }
+    std::cout << RED << "Form " << fileName << " not found" << RESET << std::endl;
+    return NULL;
 }
 

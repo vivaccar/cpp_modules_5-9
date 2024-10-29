@@ -8,4 +8,5 @@ int main(int ac, char **av)
         return 0;
     }
     std::cout << "Impossible to convert" << std::endl << "Try: ./convert [string]" << std::endl;
+    return 1;
 }

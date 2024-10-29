@@ -40,7 +40,7 @@ int main(void)
     {
         try
         {
-            Bureaucrat studentX("Student X", 50);
+            Bureaucrat studentX("Student X", 10);
             Bureaucrat studentY("Student Y", 80);
             Form       studentsForm("Students", 50, 20);
 

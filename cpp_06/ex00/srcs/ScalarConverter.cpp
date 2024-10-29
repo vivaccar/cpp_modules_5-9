@@ -13,26 +13,20 @@ ScalarConverter& ScalarConverter::operator=(ScalarConverter &other) {
 
 ScalarConverter::~ScalarConverter() {}
 
-static void toChar(const std::string &param) {
-    std::cout << "Char: " << param << std::endl;
-    std::cout << "Integer: " << static_cast<int>(param[0]) << std::endl;
-    std::cout << "Float: " << static_cast<float>(param[0]) << "f" << std::endl;
-    std::cout << "Double: " << static_cast<double>(param[0]) << std::endl;
+static char toChar(const std::string &param) {
+
 }
 
-static void toFloat(const std::string &param) {
+/* static void toFloat(const std::string &param) {
     float   n = std::atof(param.c_str());
+} */
+
+static int getType(const std::string &param) {
+    if (param.length() == 1 && )
 }
 
 void ScalarConverter::convert(const std::string &param) {
-    if (param.length() == 1 && !std::isdigit(param[0]) && std::isprint(param[0]))
-        toChar(param);
-    else if (param[param.length() - 1] == 'f')
-    {
-        
-    }
-    else
-        std::cout << "ERROR" << std::endl;
+    int type = getType(param);
 }
 
 /* 

@@ -15,6 +15,7 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 }
 
 void ShrubberyCreationForm::doExecution(Bureaucrat const &executor) const {
+    (void) executor;
     std::string file_name_str = this->_target + "_shrubbery";
     const char *file_name = file_name_str.c_str();
     std::ofstream file;
@@ -28,6 +29,4 @@ void ShrubberyCreationForm::doExecution(Bureaucrat const &executor) const {
     }
     else
         std::cerr << "Error while creating a file " << file_name;
-
-    std::cout << executor.getName() << " is able to execute" << std::endl;
 }  

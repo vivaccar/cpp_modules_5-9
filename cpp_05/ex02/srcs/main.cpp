@@ -12,8 +12,8 @@ int main(void)
         {
             Bureaucrat  student("Student", 150);
             Bureaucrat  teacher("Teacher", 137);
-            teacher.signForm(*formA);
             teacher.executeForm(*formA);
+            teacher.signForm(*formA);
             student.executeForm(*formA);
             teacher.executeForm(*formA);
             std::cout << std::endl;
@@ -69,24 +69,4 @@ int main(void)
     }
 
     std::cout << std::endl << std::endl;
-
-/*  {
-        std::cout << GREEN << "------ SOME POLYMORPHISM AND COPY TESTS --------\n" << RESET << std::endl;
-        AForm *form = new ShrubberyCreationForm("tree");
-        AForm *formb = new RobotomyRequestForm("Packing");
-        formb->setSignStatus(true);
-        *form = *formb;
-
-        delete form;
-        delete formb;
-        
-        Bureaucrat  bureaucrat("Politician", 1);
-        ShrubberyCreationForm shOne("NEYMAR");
-        bureaucrat.signForm(shOne);
-        ShrubberyCreationForm shTwo(shOne);
-
-
-
-        bureaucrat.executeForm(shTwo);
-    } */
 }

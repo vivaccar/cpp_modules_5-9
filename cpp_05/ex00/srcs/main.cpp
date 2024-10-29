@@ -7,10 +7,10 @@ int main()
         std::cout << GREEN << "------ TESTS FOR CONSTRUCTORS RANGE 1-150 --------" << std::endl;
         try
         {
-            Bureaucrat Trump("Trump", 100);
+            Bureaucrat Datena("Datena", 100);
             Bureaucrat Messi("Messi", 1);
-            Bureaucrat Romario("Romario", 151);
-            Bureaucrat Vinicius("Vini", -1);
+            Bureaucrat Romario("Romario", 150);
+            Bureaucrat Vinicius("Vini", 1);
         }
         catch(const std::exception& e)
         {

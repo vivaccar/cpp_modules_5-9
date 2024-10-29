@@ -75,20 +75,14 @@ void    Bureaucrat::decrementGrade() {
 }
 
 void    Bureaucrat::signForm(Form &Form) {
-    if (Form.getSignStatus())
+    try
     {
-        std::cout << RED << this->_name << " couldn't sign " << Form.getName() <<
-        " because this form has already been signed by another Bureaucrat" <<
-        RESET << std::endl;
-        return;
+        Form.beSigned(*this);
     }
-    if (Form.getGradeToSign() < this->_grade)
+    catch(const std::exception& e)
     {
-        std::cout << RED << this->_name << " couldn't sign " << Form.getName() <<
-        " because his grade is too low" << RESET << std::endl;
-        return ;
+        std::cerr << this->_name << " couldn't sign " << Form.getName() << " because " << e.what() << '\n';
     }
-    Form.beSigned(*this);
 }
 
 std::ostream& operator<<(std::ostream& ostream, const Bureaucrat& Bureaucrat) {

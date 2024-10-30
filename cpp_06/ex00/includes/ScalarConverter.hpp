@@ -1,14 +1,23 @@
 #ifndef SCALARCONVERTER_HPP
 #define SCALARCONVERTER_HPP
 
-#include <iostream>
-#include <string>
+# include <iostream>
+# include <exception>
+# include <cctype>
+# include <limits>
+# include <string>
+# include <cstdlib>
 
-typedef enum {
+enum e_type{
     CHAR = 1,
     INT,
     FLOAT,
     DOUBLE,
+    IINFF,
+    DINFF,
+    IINF,
+    DINF,
+    NAN
 };
 
 class ScalarConverter {
@@ -19,6 +28,7 @@ class ScalarConverter {
         ScalarConverter();
         ~ScalarConverter();
         ScalarConverter(ScalarConverter &other);
+
 
         ScalarConverter& operator=(ScalarConverter &other);
 };

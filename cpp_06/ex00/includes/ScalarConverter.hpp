@@ -4,6 +4,7 @@
 # include <iostream>
 # include <exception>
 # include <cctype>
+# include <limits.h>
 # include <limits>
 # include <string>
 # include <cstdlib>

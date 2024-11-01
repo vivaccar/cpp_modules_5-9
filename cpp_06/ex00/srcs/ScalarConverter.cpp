@@ -15,7 +15,8 @@ ScalarConverter::~ScalarConverter() {}
 
 
 bool isChar(const std::string &param) {
-    if (param.length() == 1 && std::isprint(param[0]))
+    if (((param.length() == 1) && (std::isprint(param[0])) && (param[0] < '0' || param[0] > '9')) 
+        || (param.length() == 3 && param[0] == '\'' && param[2] == '\'' && std::isprint(param[1]))) 
         return true;
     return false;
 }
@@ -47,7 +48,8 @@ static void checkInvalidArg(const std::string &param)
 {
     int dots = 0;
 
-    if (param.length() == 1)
+    if ((param.length() == 1) || (param.length() == 3 && param[0] == '\'' 
+        && std::isprint(param[1]) && param[2] == '\''))
         return;
     for (size_t i = 0; i < param.length(); i++)
     {
@@ -95,40 +97,95 @@ static int parse(const std::string &param) {
 }
 
 static void toChar(const std::string &param) {
-    char c = param[0];
+    char    c;
 
-    std::cout << "Char: " << c << std::endl;
+    if (param.length() == 1)
+        c = param[0];
+    else
+        c = param[1];
+    std::cout << "Char: \'" << c << "\'" << std::endl;
     std::cout << "Int: " << static_cast<int>(c) << std::endl;
-    std::cout << "Float: " << static_cast<float>(c) << "f" << std::endl;
-    std::cout << "Double: " << static_cast<double>(c) << std::endl;
+    std::cout << "Float: " << static_cast<float>(c) << ".0f" << std::endl;
+    std::cout << "Double: " << static_cast<double>(c) << ".0" << std::endl;
 }
 
 static void toInt(const std::string &param) {
-    int i = std::atoi(param.c_str());
+    long i = std::atol(param.c_str());
 
-    // verificar se e possivel fazer o cast para char!!
-    std::cout << "Char: Impossible to convert" << std::endl;
-    std::cout << "Int: " << i << std::endl;
-    std::cout << "Float: " << static_cast<float>(i) << "f" << std::endl;
-    std::cout << "Double: " << static_cast<double>(i) << std::endl;
+    std::cout << "Char: ";
+    if (i > std::numeric_limits<char>::max() || i < 0)
+        std::cout << "Out of range" << std::endl;
+    else if (!std::isprint(static_cast<char>(i)))
+        std::cout << "Not displayable" << std::endl;
+    else
+        std::cout << "\'" << static_cast<char>(i) << "\'" << std::endl;
+    
+    std::cout << "Int: ";
+    if (i > std::numeric_limits<int>::max() || i < std::numeric_limits<int>::min())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << i << std::endl;
+    
+    std::cout << "Float: ";
+    if (i > std::numeric_limits<float>::max() || i < -std::numeric_limits<float>::max())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << static_cast<float>(i) << ".0f" << std::endl;
+    
+    std::cout << "Double: ";
+    if (i > std::numeric_limits<double>::max() || i < -std::numeric_limits<double>::max())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << static_cast<double>(i) << ".0" << std::endl;
 }
 
 static void toFloat(const std::string &param) {
-    float f = std::strtof(param.c_str(), NULL);
+    long double f = std::strtold(param.c_str(), NULL);
 
     std::cout << "Char: Impossible to convert" << std::endl;
-    std::cout << "Int: " << static_cast<int>(f) << std::endl;
-    std::cout << "Float: " << f << "f" << std::endl;
-    std::cout << "Double: " << static_cast<double>(f) << std::endl;
+
+    std::cout << "Int: ";
+    if (f > std::numeric_limits<int>::max() || f < std::numeric_limits<int>::min())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << static_cast<int>(f) << std::endl;
+    
+    std::cout << "Float: ";
+    if (f > std::numeric_limits<float>::max() || f < -std::numeric_limits<float>::max())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << static_cast<float>(f) << "f" << std::endl;
+    
+    std::cout << "Double: ";
+    if (f > std::numeric_limits<double>::max() || f < -std::numeric_limits<double>::max())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << static_cast<double>(f) << std::endl;
 }
 
 static void toDouble(const std::string &param) {
+    long double ld = std::strtold(param.c_str(), NULL);
     double d = std::strtod(param.c_str(), NULL);
 
     std::cout << "Char: Impossible to convert" << std::endl;
-    std::cout << "Int: " << static_cast<int>(d) << std::endl;
-    std::cout << "Float: " << static_cast<float>(d) << "f" << std::endl;
-    std::cout << "Double: " << d << std::endl;
+
+    std::cout << "Int: ";
+    if (ld > std::numeric_limits<int>::max() || ld < std::numeric_limits<int>::min())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << static_cast<int>(d) << std::endl;
+    
+    std::cout << "Float: ";
+    if (ld > std::numeric_limits<float>::max() || ld < -std::numeric_limits<float>::max())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << static_cast<float>(d) << "f" << std::endl;
+    
+    std::cout << "Double: ";
+    if (ld > std::numeric_limits<double>::max() || ld < -std::numeric_limits<double>::max())
+        std::cout << "Out of range" << std::endl;
+    else
+        std::cout << d << std::endl;
 }
 
 static void toIinff(const std::string &param) {
@@ -171,7 +228,7 @@ static void toNan(const std::string &param) {
     std::cout << "Double: " << "nan" << std::endl;
 }
 
-static void doConversion(int &type, const std::string &param) {
+static void makeConvert(int &type, const std::string &param) {
     
     int     types[] = {CHAR, INT, FLOAT, DOUBLE, IINFF, DINFF, IINF, DINF, NAN};
     void    (*converters[])(const std::string &param) = { 
@@ -195,18 +252,6 @@ static void doConversion(int &type, const std::string &param) {
 
 void ScalarConverter::convert(const std::string &param) {
     int type = parse(param);
-
-    std::cout << type << std::endl;
-    doConversion(type, param);
+    makeConvert(type, param);
 }
 
-
-/* 
-CHAR - SE O LENGTH == 1 E NOT DIGIT 
-
-FLOAT - SE O ULTIMO CARACTER FOR f
-
-DOUBLE - SE TIVER UM PONTO
-
-
- */

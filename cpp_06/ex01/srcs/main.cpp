@@ -9,7 +9,7 @@ int main(void)
     uintptr_t raw = Serializer::serialize(&playerOne);
 
     Data *ptr = Serializer::deserialize(raw);
-
+    
     if (ptr == &playerOne)
     {
         std::cout << "NAME: " << ptr->name << std::endl;
@@ -19,4 +19,10 @@ int main(void)
     else
         std::cout << RED << "Something went wrong!" << RESET << std::endl;
 
+    // CREATING NEW POINTER
+
+    Data *newPtr = Serializer::deserialize(raw);
+    std::cout << "\nNew pointer Data" << std::endl;
+    std::cout << "NAME: " << newPtr->name << std::endl;
+    std::cout << "NUMBER: " << newPtr->number << std::endl;
 }

@@ -48,11 +48,8 @@ void    identify(Base& p) {
             {
                 std::cout << "Unknown Type." << std::endl;
             }
-            
         }
-        
     }
-    
 }
 
 int main(void)

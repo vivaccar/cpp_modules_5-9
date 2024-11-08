@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 #define RED "\033[31m"
 #define GREEN "\033[32m"
@@ -18,6 +20,7 @@ class Array {
         Array();
         Array(unsigned int n);
         Array(const Array &other);
+        ~Array();
         Array &operator=(const Array &other);
 
         unsigned int size() const;
@@ -52,6 +55,11 @@ Array<T> &Array<T>::operator=(const Array &other) {
 }
 
 template <typename T>
+Array<T>::~Array() {
+    delete [] this->_array;
+}
+
+template <typename T>
 T& Array<T>::operator[](unsigned int i)
 {
     if (i >= _size)
@@ -61,8 +69,6 @@ T& Array<T>::operator[](unsigned int i)
 
 template <typename T>
 unsigned int Array<T>::size() const {
-    if (!this->_array)
-        return 0;
     return this->_size;
 }
 

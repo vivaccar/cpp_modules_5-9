@@ -6,7 +6,7 @@
 
 template <typename T>
 void iterate(T &e) {
-    e = e + 10;
+
     std::cout << e << std::endl;
 }
 

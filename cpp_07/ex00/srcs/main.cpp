@@ -1,4 +1,4 @@
-#include "../includes/Whatever.hpp"
+#include "../includes/whatever.hpp"
 
 int main(void)
 {
@@ -32,7 +32,7 @@ int main(void)
         std::cout << "sY Value --> " << sY << std::endl;
     }
 
-    /*{
+    {
         std::cout << RED << "Tests for MIN" << std::endl;
         
         int iX = -10, iY = -2;
@@ -49,5 +49,5 @@ int main(void)
         std::cout << "max( iX, iY ) = " << ::max( iX, iY ) << std::endl;
         std::cout << GREEN << "\nSTRING MAX" << RESET << std::endl;
         std::cout << "max( s1, s2 ) = " << ::max( s1, s2 ) << std::endl;
-    }   */
+    }   
 }

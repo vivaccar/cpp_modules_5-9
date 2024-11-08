@@ -27,12 +27,12 @@ int main(void)
     }
 
     std::cout << RED << "\n\n= OPERATOR TESTS" << RESET << std::endl;
-    std::cout << "Array before copy: ";
+    std::cout << "\nArray before copy: ";
     for (unsigned int i = 0; i < floatArray.size(); i++)
     {
         try
         {
-            std::cout << floatArray[-1] << " ";
+            std::cout << floatArray[i] << " ";
         }
         catch(const std::exception& e)
         {
@@ -42,7 +42,7 @@ int main(void)
 
     floatArray = noEmpty;
 
-    std::cout << "\nArray after copy: ";
+    std::cout << "\n\nArray after copy: ";
     for (unsigned int i = 0; i < floatArray.size(); i++)
     {
         try

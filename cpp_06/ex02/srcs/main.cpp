@@ -53,7 +53,7 @@ void    identify(Base& p) {
 }
 
 int main(void)
-{
+{       
     Base *a = generate();
     identify(a);
     identify(*a);

@@ -2,6 +2,10 @@
 
 int main(int ac, char **av)
 {
+    std::string *a = "ola";
+
+    std::cout << dynamic_cast<int*>(a) << std::endl;
+    
     if (ac == 2)
     {
         try

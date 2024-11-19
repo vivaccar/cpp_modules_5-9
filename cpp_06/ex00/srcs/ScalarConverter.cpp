@@ -290,7 +290,7 @@ static void toNan(const std::string &param) {
 static void makeConvert(int &type, const std::string &param) {
     
     int     types[] = {CHAR, INT, FLOAT, DOUBLE, IINFF, DINFF, IINF, DINF, NAN};
-    void    (*converters[])(const std::string &param) = { 
+    void    (*converters[])(const std::string &param) = {
         &toChar, 
         &toInt, 
         &toFloat, 

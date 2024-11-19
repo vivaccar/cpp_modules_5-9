@@ -1,8 +1,8 @@
-SRCS = srcs/main.cpp 
+SRCS = srcs/main.cpp srcs/Span.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-NAME = easyfind
+NAME = span
 
 CC = c++
 

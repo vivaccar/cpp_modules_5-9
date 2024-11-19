@@ -1,8 +1,8 @@
 #include "../includes/Serializer.hpp"
 
 int main(void) 
-{
-    Data playerOne;
+{    
+    Data *playerOne;
     playerOne.name = "Vinicius";
     playerOne.number = 10;
 

@@ -31,7 +31,7 @@ int main(void)
     {
         std::cerr << e.what() << '\n';
     }
-    
+    std::cout << RED << "\n--------------------------------------\n" << RESET << std::endl;
     try
     {
         std::cout << GREEN << "\nTEST 2 --> LONGEST SPAN: \n" << RESET << std::endl;
@@ -47,7 +47,7 @@ int main(void)
     {
         std::cerr << e.what() << '\n';
     }
-    
+    std::cout << RED << "\n--------------------------------------\n" << RESET << std::endl;
     try
     {
         std::cout << GREEN << "\nTEST 3 --> SHORTEST SPAN: \n" << RESET << std::endl;
@@ -63,18 +63,19 @@ int main(void)
     {
         std::cerr << e.what() << '\n';
     }
-
+    std::cout << RED << "\n--------------------------------------\n" << RESET << std::endl;
     try
     {
-        std::vector<int> v(100);
-        Span s(100);
+        std::cout << GREEN << "\nTEST 4 --> 1000000 VALUES: \n" << RESET << std::endl;
+        std::vector<int> v(1000000);
+        Span s(1000000);
         std::generate(v.begin(), v.end(), rand);
         s.addNumber(v.begin(), v.end());
-        s.print();
-        s.addNumber(v.begin(), v.end());
+        //s.print();
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
     }
+    std::cout << RED << "\n--------------------------------------\n" << RESET << std::endl;
 }

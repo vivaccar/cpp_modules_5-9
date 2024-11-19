@@ -18,6 +18,12 @@ void Span::addNumber(int n) {
     numbers.push_back(n);
 }
 
+void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
+    if (this->numbers.size() + std::distance(begin, end) > this->size)
+        throw (std::out_of_range("Impossible to add more values to container"));
+    this->numbers.insert(numbers.end(), begin, end);
+}
+
 void Span::print() {
     for (std::list<int>::iterator it = numbers.begin(); it != numbers.end(); it++) {
         std::cout << *it << std::endl;

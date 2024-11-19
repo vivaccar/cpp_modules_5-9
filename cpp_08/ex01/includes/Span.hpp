@@ -22,13 +22,13 @@ class Span {
     public:
         Span();
         Span(unsigned int size);
-        Span(std::vector<int>::iterator begin, std::vector<int>::iterator end);
         Span(const Span &other);
         ~Span();
         
         unsigned int getSize();
 
         void addNumber(int n);
+        void addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end);
         void print();
         unsigned int shortestSpan();
         unsigned int longestSpan();

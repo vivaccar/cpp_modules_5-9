@@ -63,5 +63,18 @@ int main(void)
     {
         std::cerr << e.what() << '\n';
     }
-    
+
+    try
+    {
+        std::vector<int> v(100);
+        Span s(100);
+        std::generate(v.begin(), v.end(), rand);
+        s.addNumber(v.begin(), v.end());
+        s.print();
+        s.addNumber(v.begin(), v.end());
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
 }

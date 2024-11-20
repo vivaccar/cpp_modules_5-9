@@ -18,7 +18,6 @@ int main()
         mstack.push(0);
         MutantStack<int>::iterator it = mstack.begin();
         MutantStack<int>::iterator ite = mstack.end();
-        std::cout << BLUE << *it << RESET << std::endl;
         ++it;
         --it;
         while (it != ite)
@@ -27,7 +26,6 @@ int main()
             ++it;
         }
         std::stack<int> s(mstack);
-        //return 0;
     }
 
     {
@@ -36,6 +34,8 @@ int main()
 
         s.push(1);
         s.push(2);
+        s.push(10);
+        s.push(-1);
 
         for (MutantStack<int>::iterator it = s.begin(); it != s.end(); it++) {
             std::cout << *it << " ";

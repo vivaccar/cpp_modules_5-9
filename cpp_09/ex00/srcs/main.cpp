@@ -53,7 +53,8 @@ void checkDate(std::string &date)
         start++;
     while (std::isspace(date[end]))
         end--;
-    date = date.substr(start, start - end + 1);
+    date = date.substr(start, end - start + 1);
+    std::cout << "DATE: " << date << " DATE LEN = " << date.length() << std::endl;
     if (date.length() != 10)
         throw (BitcoinExchange::BadInputDate());
 

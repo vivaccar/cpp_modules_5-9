@@ -7,7 +7,8 @@
 #include <exception>
 #include <fstream>
 #include <cstdlib>
-
+#include <limits>
+#include <limits.h>
 
 class BitcoinExchange {
     private:

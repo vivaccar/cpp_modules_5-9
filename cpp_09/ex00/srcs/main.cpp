@@ -40,10 +40,21 @@ void    parseDataBase(int ac, BitcoinExchange &btcExchange)
     btcDataBase.close();
 }
 
+void    validateDate(int d, int m, int y)
+{
+    (void) y;
+    if (d > 31 || m > 12)
+        throw (BitcoinExchange::BadInputDate());
+    if (d == 31 && (m == 2 || m == 4 || m == 6 || m == 9 || m == 11))
+        throw (BitcoinExchange::BadInputDate());
+    if (d == 29 && m == 2)
+        throw (BitcoinExchange::BadInputDate());
+}
+
+
 void checkDate(std::string &date)
 {
     // yyyy-mm-dd
-    std::string dates[3];
     unsigned int start = 0, end = date.length() - 1;
 
     if (date.length() < 10)
@@ -76,8 +87,9 @@ void checkDate(std::string &date)
     if (!std::isdigit(day[0]) || !std::isdigit(day[1]))
         throw (BitcoinExchange::BadInputDate());
     int dayInt = std::atoi(day.c_str());
+    int yearInt = std::atoi(year.c_str());
 
-    //validateDate(dayInt, monthInt, year)
+    validateDate(dayInt, monthInt, yearInt);
 }
 
 float    checkValue(std::string &value)
@@ -100,7 +112,7 @@ float    checkValue(std::string &value)
         if (dots == 2)
             throw (BitcoinExchange::BadInputDate());
         if (i == 0 && value[0] == '-')
-            throw (BitcoinExchange::NotPositiveNumber()); 
+            throw (BitcoinExchange::NotPositiveNumber());
         if (!std::isdigit(value[i]) && value[i] != '.')
             throw (BitcoinExchange::BadInputDate());
     }
@@ -115,9 +127,10 @@ float    checkValue(std::string &value)
 std::string   decreaseDate(std::string &date)
 {
     int year = std::atoi(date.substr(0, 4).c_str());
-    int month = std::atoi(date.substr(6, 2).c_str());
+    int month = std::atoi(date.substr(5, 2).c_str());
     int day = std::atoi(date.substr(8, 2).c_str());
     std::ostringstream oss;
+
 
     if (day > 1)
         day--;
@@ -142,6 +155,7 @@ std::string   decreaseDate(std::string &date)
     }
     oss << year << "-" << std::setw(2) << std::setfill('0') 
     << month << "-" << std::setw(2) << std::setfill('0') << day;
+    //std::cout << oss.str() << std::endl;
     return (oss.str());
 }
 
@@ -183,7 +197,7 @@ void    runInputFile(char *fileName, BitcoinExchange &btcExchange)
                     date = decreaseDate(date);
                 }
             }
-            std::cout << date << " => " << value << " = " << n << std::endl; 
+            std::cout << date << " => " << value << " = " << n << std::endl;
         }
         catch(const std::exception& e)
         {

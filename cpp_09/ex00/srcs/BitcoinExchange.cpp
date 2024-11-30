@@ -33,6 +33,8 @@ void BitcoinExchange::print() {
 }
 
 float BitcoinExchange::getElement(const std::string &key)  const {
+    std::map<std::string, float>::iterator b = _btcValues.begin();
+    std::map<std::string, float>::iterator b = _btcValues.end();
     return (_btcValues.at(key));
 }
 

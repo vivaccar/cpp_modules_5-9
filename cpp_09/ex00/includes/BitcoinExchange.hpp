@@ -2,6 +2,7 @@
 #define BITCOINEXCHANGE_HPP
 
 #include <map>
+#include <vector>
 #include <iostream>
 #include <string>
 #include <exception>
@@ -9,6 +10,8 @@
 #include <cstdlib>
 #include <limits>
 #include <limits.h>
+#include <sstream>
+#include <iomanip>
 
 class BitcoinExchange {
     private:
@@ -24,6 +27,7 @@ class BitcoinExchange {
 
         void    addElement(const std::string &key, const float &value);
         void    print();
+        float   getElement(const std::string &key) const;
 
         class NotPositiveNumber : public std::exception {
             public:

@@ -24,8 +24,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &other) {
 }
 
 void BitcoinExchange::addElement(const std::string &key, const float &value) {
-    (void) key;
-    (void) value;
+
     this->_btcValues.insert(std::make_pair(key, value));
 }
 
@@ -33,9 +32,9 @@ void BitcoinExchange::print() {
     // 
 }
 
-/* float BitcoinExchange::getElement(std::string data) {
-
-} */
+float BitcoinExchange::getElement(const std::string &key)  const {
+    return (_btcValues.at(key));
+}
 
 const char *BitcoinExchange::BadInputDate::what() const throw() {
     return "Error: bad input.";

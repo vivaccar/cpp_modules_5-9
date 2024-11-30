@@ -54,7 +54,6 @@ void checkDate(std::string &date)
     while (std::isspace(date[end]))
         end--;
     date = date.substr(start, end - start + 1);
-    std::cout << "DATE: " << date << " DATE LEN = " << date.length() << std::endl;
     if (date.length() != 10)
         throw (BitcoinExchange::BadInputDate());
 
@@ -72,30 +71,16 @@ void checkDate(std::string &date)
     if (!std::isdigit(month[0]) || !std::isdigit(month[1]))
         throw (BitcoinExchange::BadInputDate());
     int monthInt = std::atoi(month.c_str());
-    if (monthInt > 12)
-        throw (BitcoinExchange::BadInputDate());
 
     std::string day = date.substr(8, 2);
     if (!std::isdigit(day[0]) || !std::isdigit(day[1]))
         throw (BitcoinExchange::BadInputDate());
     int dayInt = std::atoi(day.c_str());
-    if (dayInt > 31)
-        throw (BitcoinExchange::BadInputDate());
 
-    std::cout << date << std::endl;
-
-/*     int y = std::atoi(year.c_str());
-    if (y < 0)
-        throw (BitcoinExchange::BadInputDate()); */
-
-    //std::cout << date << std::endl;
-    //dates[0] = date.substr(0, 4);
-    //dates[1] = date.substr(5, 6);
-    //dates[2] = date.substr(8, 8);
-    //std::cout << "YEAR: " << dates[0] << " MONTH: " << dates[1] << " DAY: " << dates[2] << std::endl;
+    //validateDate(dayInt, monthInt, year)
 }
 
-void    checkValue(std::string &value)
+float    checkValue(std::string &value)
 {
     unsigned int start = 0, end = value.length() - 1;
 
@@ -104,23 +89,60 @@ void    checkValue(std::string &value)
     while (std::isspace(value[end]))
         end--;
 
-    
     value = value.substr(start, end - start + 1);
-    std:: cout << value << std::endl;
+    int dots = 0;
+    if (value[0] == '.' || value[value.length() - 1] == '.')
+        throw (BitcoinExchange::BadInputDate());
     for (unsigned int i = 0; i < value.length(); i++)
     {
+        if (value[i] == '.')
+            dots++;
+        if (dots == 2)
+            throw (BitcoinExchange::BadInputDate());
         if (i == 0 && value[0] == '-')
-            i = 1;
-        //std::cout << value[i] << std::endl;
-        if (!std::isdigit(value[i]))
+            throw (BitcoinExchange::NotPositiveNumber()); 
+        if (!std::isdigit(value[i]) && value[i] != '.')
             throw (BitcoinExchange::BadInputDate());
     }
-
-    long long valueInt = std::atoll(value.c_str());
+    long double valueInt = std::atof(value.c_str());
     if (valueInt > std::numeric_limits<int>::max())
         throw (BitcoinExchange::TooLargeNumber());
     if (valueInt < 0)
         throw (BitcoinExchange::NotPositiveNumber());
+    return (static_cast<float>(valueInt));
+}
+
+std::string   decreaseDate(std::string &date)
+{
+    int year = std::atoi(date.substr(0, 4).c_str());
+    int month = std::atoi(date.substr(6, 2).c_str());
+    int day = std::atoi(date.substr(8, 2).c_str());
+    std::ostringstream oss;
+
+    if (day > 1)
+        day--;
+    else
+    {
+        if (month > 1)
+        {
+            month--;
+            if (month == 4 || month == 6|| month == 9 || month == 11)
+                day = 30;
+            else if (month == 2)
+                day = 28;
+            else
+                day = 31;
+        }
+        else
+        {
+            year--;
+            day = 31;
+            month = 12;
+        }
+    }
+    oss << year << "-" << std::setw(2) << std::setfill('0') 
+    << month << "-" << std::setw(2) << std::setfill('0') << day;
+    return (oss.str());
 }
 
 void    runInputFile(char *fileName, BitcoinExchange &btcExchange)
@@ -147,7 +169,21 @@ void    runInputFile(char *fileName, BitcoinExchange &btcExchange)
             std::string date = line.substr(0, pos);
             checkDate(date);
             std::string value = line.substr(pos + 3);
-            checkValue(value);
+            float qt = checkValue(value);
+            float n = 0;
+            while (true)
+            {
+                try
+                {
+                    n = btcExchange.getElement(date) * qt;
+                    break ;
+                }
+                catch(const std::out_of_range& e)
+                {
+                    date = decreaseDate(date);
+                }
+            }
+            std::cout << date << " => " << value << " = " << n << std::endl; 
         }
         catch(const std::exception& e)
         {
@@ -156,6 +192,8 @@ void    runInputFile(char *fileName, BitcoinExchange &btcExchange)
     }
     inputFile.close();
 }
+
+// 2011-01-03 => 3 = 0.9
 
 int main(int ac, char **av)
 {

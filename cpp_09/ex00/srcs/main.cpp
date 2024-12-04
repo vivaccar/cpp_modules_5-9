@@ -13,13 +13,24 @@ std::string getDate(std::string &line)
     return (line.substr(0, i));
 }
 
+bool    isLeapYear(int year)
+{
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        return true;
+    }
+    return false;
+}
+
 void    fillMap(BitcoinExchange &btcExchange, std::ifstream &btcDataBase)
 {
     std::string line;    
     (void) btcExchange;
+    std::getline(btcDataBase, line);
+    if (line != "date,exchange_rate")
+        throw (BitcoinExchange::BadInputDate());
     while (std::getline(btcDataBase, line))
     {
-        if (line == "date,exchange_rate")
+        if (line.empty())
             continue;
         std::string key = getDate(line);
         long double value = getValue(line);
@@ -31,11 +42,11 @@ void    fillMap(BitcoinExchange &btcExchange, std::ifstream &btcDataBase)
 void    parseDataBase(int ac, BitcoinExchange &btcExchange)
 {
     if (ac != 2)
-        throw (std::invalid_argument("Invalid number of arguments\nTry: ./btc \"input_file\""));
+        throw (std::invalid_argument("Error: could not open file."));
     std::ifstream btcDataBase;
     btcDataBase.open("data.csv");
     if (!btcDataBase.is_open())
-        throw (std::invalid_argument("Can't open file"));
+        throw (std::invalid_argument("Error: could not open file."));
     fillMap(btcExchange, btcDataBase);
     btcDataBase.close();
 }
@@ -47,7 +58,7 @@ void    validateDate(int d, int m, int y)
         throw (BitcoinExchange::BadInputDate());
     if (d == 31 && (m == 2 || m == 4 || m == 6 || m == 9 || m == 11))
         throw (BitcoinExchange::BadInputDate());
-    if (d == 29 && m == 2)
+    if (d > 28 && m == 2 && !isLeapYear(y))
         throw (BitcoinExchange::BadInputDate());
 }
 
@@ -166,7 +177,7 @@ void    runInputFile(char *fileName, BitcoinExchange &btcExchange)
     std::ifstream inputFile;
     inputFile.open(fileName);
     if (!inputFile.is_open())
-        throw (std::invalid_argument("Can't open file"));
+        throw (std::invalid_argument("Error: could not open file."));
     std::string line;
     std::getline(inputFile, line);
     if (line != "date | value")

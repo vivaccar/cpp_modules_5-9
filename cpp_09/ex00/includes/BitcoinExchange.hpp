@@ -27,7 +27,7 @@ class BitcoinExchange {
 
         void    addElement(const std::string &key, const float &value);
         void    print();
-        float   getElement(const std::string &key) const;
+        float   getElement(std::string &key) const;
 
         class NotPositiveNumber : public std::exception {
             public:

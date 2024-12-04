@@ -16,7 +16,7 @@
 
 class Span {
     private:
-        const unsigned int size;
+        unsigned int size;
         std::list<int> numbers;
 
     public:
@@ -24,6 +24,7 @@ class Span {
         Span(unsigned int size);
         Span(const Span &other);
         ~Span();
+        Span& operator=(const Span &other);
         
         unsigned int getSize();
 

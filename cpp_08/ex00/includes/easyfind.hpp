@@ -16,7 +16,7 @@
 #define RED "\033[31m"
 #define RESET "\033[0m"
 
-template<typename T>
+template<typename T>	
 typename T::iterator easyfind(T &container, int value)
 {
 	typename T::iterator element = std::find(container.begin(), container.end(), value);

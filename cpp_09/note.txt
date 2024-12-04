@@ -1,0 +1,4 @@
+TO DO BTC
+
+* aceitar floats como valor
+* buscar valor anterior caso nao tenha a data no map

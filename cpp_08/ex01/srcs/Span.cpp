@@ -8,6 +8,14 @@ Span::Span(const Span &other) : size(other.size), numbers(other.numbers) {}
 
 Span::~Span() {}
 
+Span& Span::operator=(const Span &other) {
+    if (this == &other)
+        return *this;
+    this->size = other.size;
+    this->numbers = other.numbers;
+    return *this;
+}
+
 unsigned int Span::getSize() {
     return this->size;
 }

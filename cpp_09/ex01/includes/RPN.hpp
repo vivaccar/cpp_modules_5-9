@@ -4,7 +4,7 @@
 #include "stack"
 #include "string"
 #include "iostream"
-#include "exception"
+#include <exception>
 
 class RPN {
     private:

@@ -23,13 +23,17 @@ unsigned int numberEnd(std::string notation, unsigned int i) {
         {
             dots++;
             if (dots > 1)
-                throw (std::exception());
+                throw (std::invalid_argument("Error"));
         }
+        if (notation[i + 1] == " ")
+            break;
+        i++;
     }
+    return i;
 }
 
 RPN::RPN(std::string notation) {
-    double num;
+    //double num;
     
     for (unsigned int i = 0; i < notation.length(); i++)
     {
@@ -38,6 +42,7 @@ RPN::RPN(std::string notation) {
         if (std::isdigit(notation[i]))
         {
             unsigned int j = numberEnd(notation, i);
+            (void)j;
         }
         std::cout << notation[i];
     }

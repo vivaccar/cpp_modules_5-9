@@ -8,6 +8,26 @@ bool    invalidCharacter(char c) {
 
 RPN::RPN() {}
 
+unsigned int numberEnd(std::string notation, unsigned int i) {
+    int dots = 0;
+    unsigned int start = i;
+    
+    while (notation[i])
+    {
+        if (i == start && notation[start] == '-')
+        {
+            i++;
+            continue ;
+        }
+        if (notation[i] == '.')
+        {
+            dots++;
+            if (dots > 1)
+                throw (std::exception());
+        }
+    }
+}
+
 RPN::RPN(std::string notation) {
     double num;
     
@@ -17,7 +37,7 @@ RPN::RPN(std::string notation) {
             continue;
         if (std::isdigit(notation[i]))
         {
-            
+            unsigned int j = numberEnd(notation, i);
         }
         std::cout << notation[i];
     }

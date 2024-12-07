@@ -7,6 +7,7 @@
 #include <string>
 #include <sstream>
 #include <cstdlib>
+#include <limits>
 
 class PmergeMe {
 
@@ -18,6 +19,8 @@ class PmergeMe {
 
         static void mergeMe(std::vector<int> &vector);
         
+        static void printVector(std::vector<int> &vector);
+        static void printDeque(std::deque<int> &deque);
 };
 
 #endif

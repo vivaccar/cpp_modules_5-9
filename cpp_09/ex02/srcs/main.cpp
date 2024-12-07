@@ -25,12 +25,11 @@ void    fillContainers(std::vector<int> &vec, std::deque<int> &deq, std::string 
         if (!isValid(nStr))
             throw (std::invalid_argument("Error"));
         l = atol(nStr.c_str());
-        std::cout << l << std::endl;
-        
-    }
-    for (std::vector<std::string>::iterator it = numbers.begin(); it != numbers.end(); it++ )
-    {
-        std::cout << *it << std::endl;
+        if (l > std::numeric_limits<int>::max() || l < 1)
+            throw (std::invalid_argument("Error"));
+        int n = l;
+        vec.push_back(n);
+        deq.push_back(n);
     }
 }
 
@@ -43,6 +42,8 @@ int main(int ac, char **av)
         try
         {
             fillContainers(vec, deq, av[1]);
+            PmergeMe::printDeque(deq);
+            PmergeMe::printVector(vec);
         }
         catch(const std::exception& e)
         {

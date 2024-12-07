@@ -2,7 +2,7 @@ SRCS = srcs/main.cpp srcs/PmergeMe.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-NAME = RPN
+NAME = PmergeMe
 
 CC = c++
 

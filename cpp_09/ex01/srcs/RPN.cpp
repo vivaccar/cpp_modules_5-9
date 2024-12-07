@@ -64,6 +64,9 @@ RPN::~RPN() {}
 
 RPN& RPN::operator=(const RPN &other) {
     (void) other;
+    if (this == &other)
+        return *this;
+    this->_stack = other._stack;
     return *this;
 }
 

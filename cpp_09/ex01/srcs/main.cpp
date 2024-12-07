@@ -7,6 +7,7 @@ int main(int ac, char **av)
         try
         {
             RPN rpn(av[1]);
+            std::cout << rpn.getTop() << std::endl;
             return 0;
         }
         catch(const std::exception& e)

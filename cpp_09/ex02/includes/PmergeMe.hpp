@@ -3,17 +3,21 @@
 
 #include <vector>
 #include <deque>
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <cstdlib>
 
 class PmergeMe {
-    private:
-        std::vector<int> vec;
-        std::deque<int> deq;
 
     public:
         PmergeMe();
         PmergeMe(const PmergeMe &other);
         ~PmergeMe();
         PmergeMe& operator=(const PmergeMe &other);
+
+        static void mergeMe(std::vector<int> &vector);
+        
 };
 
 #endif

@@ -42,7 +42,9 @@ int main(int ac, char **av)
         try
         {
             fillContainers(vec, deq, av[1]);
-            PmergeMe::printDeque(deq);
+            //PmergeMe::printDeque(deq);
+            PmergeMe::printVector(vec);
+            PmergeMe::mergeMe(vec);
             PmergeMe::printVector(vec);
         }
         catch(const std::exception& e)

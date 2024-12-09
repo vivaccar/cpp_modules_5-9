@@ -14,8 +14,63 @@ PmergeMe& PmergeMe::operator=(const PmergeMe &other) {
     return *this;
 }
 
-void PmergeMe::mergeMe(std::vector<int> &vector) {
-    
+void PmergeMe::mergeMe(std::vector<int>& vector) {
+    if (vector.empty() || vector.size() == 1) {
+        return; // Vetores com 0 ou 1 elemento já estão ordenados
+    }
+    mergeInsertionSort(vector, 0, vector.size() - 1);
+}
+
+void PmergeMe::mergeInsertionSort(std::vector<int>& vector, size_t left, size_t right) {
+    if (right - left <= 1) { // Subproblema pequeno, ordenamos diretamente
+        if (vector[right] < vector[left]) {
+            std::swap(vector[left], vector[right]);
+        }
+        return;
+    }
+
+    // Dividimos em pares
+    size_t mid = left + (right - left) / 2;
+
+    // Ordenamos recursivamente as duas metades
+    mergeInsertionSort(vector, left, mid);
+    mergeInsertionSort(vector, mid + 1, right);
+
+    // Mesclamos as duas metades
+    merge(vector, left, mid, right);
+}
+
+void PmergeMe::merge(std::vector<int>& vector, size_t left, size_t mid, size_t right) {
+    size_t i = left;
+    size_t j = mid + 1;
+    std::vector<int> temp;
+
+    // Comparamos elementos das duas metades
+    while (i <= mid && j <= right) {
+        if (vector[i] <= vector[j]) {
+            temp.push_back(vector[i]);
+            i++;
+        } else {
+            temp.push_back(vector[j]);
+            j++;
+        }
+    }
+
+    // Copiamos os elementos restantes de cada metade
+    while (i <= mid) {
+        temp.push_back(vector[i]);
+        i++;
+    }
+
+    while (j <= right) {
+        temp.push_back(vector[j]);
+        j++;
+    }
+
+    // Atualizamos o vetor original
+    for (size_t k = 0; k < temp.size(); ++k) {
+        vector[left + k] = temp[k];
+    }
 }
 
 void    PmergeMe::printVector(std::vector<int> &vector) {

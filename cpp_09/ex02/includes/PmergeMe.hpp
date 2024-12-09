@@ -18,6 +18,8 @@ class PmergeMe {
         PmergeMe& operator=(const PmergeMe &other);
 
         static void mergeMe(std::vector<int> &vector);
+        static void        mergeInsertionSort(std::vector<int>& vector, size_t left, size_t right);
+        static void        merge(std::vector<int>& vector, size_t left, size_t mid, size_t right);
         
         static void printVector(std::vector<int> &vector);
         static void printDeque(std::deque<int> &deque);

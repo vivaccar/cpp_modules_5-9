@@ -12,8 +12,6 @@ bool    isValid(std::string &nStr)
 
 void    fillContainers(std::vector<int> &vec, std::deque<int> &deq, char **av)
 {
-    (void) vec;
-    (void) deq;
     long    n;
     
     av++;

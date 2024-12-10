@@ -46,31 +46,34 @@ void PmergeMe::mergeVec(std::vector<int>& vector, size_t left, size_t mid, size_
     std::vector<int> temp;
 
     // Comparamos elementos das duas metades
-    while (i <= mid && j <= right) {
-        if (vector[i] <= vector[j]) {
+    while (i <= mid && j <= right)
+    {
+        if (vector[i] <= vector[j])
+        {
             temp.push_back(vector[i]);
             i++;
-        } else {
+        }
+        else
+        {
             temp.push_back(vector[j]);
             j++;
         }
     }
-
     // Copiamos os elementos restantes de cada metade
-    while (i <= mid) {
+    while (i <= mid)
+    {
         temp.push_back(vector[i]);
         i++;
     }
 
-    while (j <= right) {
+    while (j <= right)
+    {
         temp.push_back(vector[j]);
         j++;
     }
-
     // Atualizamos o vetor original
-    for (size_t k = 0; k < temp.size(); ++k) {
+    for (size_t k = 0; k < temp.size(); ++k)
         vector[left + k] = temp[k];
-    }
 }
 
 void    PmergeMe::mergeMeDeq(std::deque<int> &deque) {
@@ -100,31 +103,34 @@ void    PmergeMe::mergeDeq(std::deque<int> &deque, size_t left, size_t mid, size
     std::deque<int> temp;
 
     // Comparamos elementos das duas metades
-    while (i <= mid && j <= right) {
-        if (deque[i] <= deque[j]) {
+    while (i <= mid && j <= right)
+    {
+        if (deque[i] <= deque[j])
+        {
             temp.push_back(deque[i]);
             i++;
-        } else {
+        }
+        else
+        {
             temp.push_back(deque[j]);
             j++;
         }
     }
-
     // Copiamos os elementos restantes de cada metade
-    while (i <= mid) {
+    while (i <= mid)
+    {
         temp.push_back(deque[i]);
         i++;
     }
 
-    while (j <= right) {
+    while (j <= right)
+    {
         temp.push_back(deque[j]);
         j++;
     }
-
     // Atualizamos o vetor original
-    for (size_t k = 0; k < temp.size(); ++k) {
+    for (size_t k = 0; k < temp.size(); ++k)
         deque[left + k] = temp[k];
-    }
 }
 
 void    PmergeMe::printVector(std::vector<int> &vector) {

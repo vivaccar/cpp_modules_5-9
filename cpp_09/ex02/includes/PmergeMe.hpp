@@ -8,6 +8,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <limits>
+#include <ctime>
 
 class PmergeMe {
 
@@ -17,12 +18,16 @@ class PmergeMe {
         ~PmergeMe();
         PmergeMe& operator=(const PmergeMe &other);
 
-        static void mergeMe(std::vector<int> &vector);
-        static void        mergeInsertionSort(std::vector<int>& vector, size_t left, size_t right);
-        static void        merge(std::vector<int>& vector, size_t left, size_t mid, size_t right);
+        static void        mergeMeVec(std::vector<int> &vector);
+        static void        mergeInsertionSortVec(std::vector<int>& vector, size_t left, size_t right);
+        static void        mergeVec(std::vector<int>& vector, size_t left, size_t mid, size_t right);
+
+        static void        mergeMeDeq(std::deque<int> &deque);
+        static void        mergeInsertionSortDeq(std::deque<int>& deque, size_t left, size_t right);
+        static void        mergeDeq(std::deque<int>& deque, size_t left, size_t mid, size_t right);
         
-        static void printVector(std::vector<int> &vector);
-        static void printDeque(std::deque<int> &deque);
+        static void         printVector(std::vector<int> &vector);
+        static void         printDeque(std::deque<int> &deque);
 };
 
 #endif

@@ -14,18 +14,18 @@ PmergeMe& PmergeMe::operator=(const PmergeMe &other) {
     return *this;
 }
 
-void PmergeMe::mergeMe(std::vector<int>& vector) {
-    if (vector.empty() || vector.size() == 1) {
-        return; // Vetores com 0 ou 1 elemento já estão ordenados
+void PmergeMe::mergeMeVec(std::vector<int>& vector) {
+    if (vector.size() <= 1) {
+        return;
     }
-    mergeInsertionSort(vector, 0, vector.size() - 1);
+    mergeInsertionSortVec(vector, 0, vector.size() - 1);
 }
 
-void PmergeMe::mergeInsertionSort(std::vector<int>& vector, size_t left, size_t right) {
-    if (right - left <= 1) { // Subproblema pequeno, ordenamos diretamente
-        if (vector[right] < vector[left]) {
+void PmergeMe::mergeInsertionSortVec(std::vector<int>& vector, size_t left, size_t right) {
+    if (right - left <= 1)
+    { // Subproblema
+        if (vector[right] < vector[left])
             std::swap(vector[left], vector[right]);
-        }
         return;
     }
 
@@ -33,14 +33,14 @@ void PmergeMe::mergeInsertionSort(std::vector<int>& vector, size_t left, size_t 
     size_t mid = left + (right - left) / 2;
 
     // Ordenamos recursivamente as duas metades
-    mergeInsertionSort(vector, left, mid);
-    mergeInsertionSort(vector, mid + 1, right);
+    mergeInsertionSortVec(vector, left, mid);
+    mergeInsertionSortVec(vector, mid + 1, right);
 
     // Mesclamos as duas metades
-    merge(vector, left, mid, right);
+    mergeVec(vector, left, mid, right);
 }
 
-void PmergeMe::merge(std::vector<int>& vector, size_t left, size_t mid, size_t right) {
+void PmergeMe::mergeVec(std::vector<int>& vector, size_t left, size_t mid, size_t right) {
     size_t i = left;
     size_t j = mid + 1;
     std::vector<int> temp;
@@ -70,6 +70,60 @@ void PmergeMe::merge(std::vector<int>& vector, size_t left, size_t mid, size_t r
     // Atualizamos o vetor original
     for (size_t k = 0; k < temp.size(); ++k) {
         vector[left + k] = temp[k];
+    }
+}
+
+void    PmergeMe::mergeMeDeq(std::deque<int> &deque) {
+    if (deque.size() <= 1)
+        return ;
+    mergeInsertionSortDeq(deque, 0, deque.size() - 1);
+}
+
+void    PmergeMe::mergeInsertionSortDeq(std::deque<int> &deque, size_t left, size_t right) {
+    if (right - left <= 1)
+    {
+        if (deque[right] < deque[left])
+            std::swap(deque[right], deque[left]);
+        return;
+    }
+    size_t mid = left + (right - left) / 2;
+
+    mergeInsertionSortDeq(deque, left, mid);
+    mergeInsertionSortDeq(deque, mid + 1, right);
+
+    mergeDeq(deque, left, mid, right);
+}
+
+void    PmergeMe::mergeDeq(std::deque<int> &deque, size_t left, size_t mid, size_t right) {
+    size_t i = left;
+    size_t j = mid + 1;
+    std::deque<int> temp;
+
+    // Comparamos elementos das duas metades
+    while (i <= mid && j <= right) {
+        if (deque[i] <= deque[j]) {
+            temp.push_back(deque[i]);
+            i++;
+        } else {
+            temp.push_back(deque[j]);
+            j++;
+        }
+    }
+
+    // Copiamos os elementos restantes de cada metade
+    while (i <= mid) {
+        temp.push_back(deque[i]);
+        i++;
+    }
+
+    while (j <= right) {
+        temp.push_back(deque[j]);
+        j++;
+    }
+
+    // Atualizamos o vetor original
+    for (size_t k = 0; k < temp.size(); ++k) {
+        deque[left + k] = temp[k];
     }
 }
 

@@ -103,10 +103,23 @@ void checkDate(std::string &date)
     validateDate(dayInt, monthInt, yearInt);
 }
 
+bool    emptyValue(std::string &value)
+{
+    for (unsigned int i = 0; i < value.length(); i++)
+    {
+        if (!std::isspace(value[i]))
+            return false;
+    }
+    return true;
+}
+
 float    checkValue(std::string &value)
 {
-    unsigned int start = 0, end = value.length() - 1;
-
+    unsigned int start = 0, end = value.length() - 1; 
+    if (value.length() == 0)
+        throw (BitcoinExchange::BadInputDate());
+    if (emptyValue(value))
+        throw (BitcoinExchange::BadInputDate());
     while (std::isspace(value[start]))
         start++;
     while (std::isspace(value[end]))
@@ -114,7 +127,7 @@ float    checkValue(std::string &value)
 
     value = value.substr(start, end - start + 1);
     int dots = 0;
-    if (value[0] == '.' || value[value.length() - 1] == '.')
+    if (value[0] == '.' || value[value.length() - 1] == '.' || value[0] == ' ')
         throw (BitcoinExchange::BadInputDate());
     for (unsigned int i = 0; i < value.length(); i++)
     {

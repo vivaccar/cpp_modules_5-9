@@ -41,7 +41,11 @@ RPN::RPN(std::string notation) {
         if (std::isspace(notation[i]))
             continue;
         if (std::isdigit(notation[i]))
+        {
             _stack.push(notation[i] - 48);
+            if (notation[i + 1] && notation[i + 1] != ' ')
+                throw (std::invalid_argument("Error"));
+        }    
         RPN::check(notation, i);
         if (_stack.size() >= 2 && isOperator(notation[i]))
         {

@@ -11,6 +11,7 @@
 #include <list>
 #include <set>
 #include <deque>
+#include <stack>
 
 #define BLUE "\033[34m"
 #define RED "\033[31m"

@@ -88,11 +88,37 @@ int main(void)
     try
     {
         std::cout << GREEN << "\nTEST 5 --> 1000000 VALUES: \n" << RESET << std::endl;
-        std::vector<int> v(1000000);
-        Span s(1000000);
+        std::vector<int> v(100000);
+        Span s(100000);
+        std::generate(v.begin(), v.end(), rand);
+        s.addNumber(v.begin(), v.end());
+        s.print();
+        std::cout << "Size: " << s.getSize() << std::endl;
+
+        std::cout << "Longest Span: " << s.longestSpan() << std::endl;
+        std::cout << "Shortest Span: " << s.shortestSpan() << std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    std::cout << RED << "\n--------------------------------------\n" << RESET << std::endl;
+
+    std::cout << RED << "\n--------------------------------------\n" << RESET << std::endl;
+    try
+    {
+        std::cout << GREEN << "\nTEST 5 --> COPY CONSTRUCTOR: \n" << RESET << std::endl;
+        std::vector<int> v(100000);
+        Span s(100000);
         std::generate(v.begin(), v.end(), rand);
         s.addNumber(v.begin(), v.end());
         //s.print();
+        Span sCopy(s);
+        std::cout << "Size s: " << s.getSize() << std::endl;
+        std::cout << "Size sCopy: " << sCopy.getSize() << std::endl;
+
+        std::cout << "Longest Span: " << s.longestSpan() << std::endl;
+        std::cout << "Shortest Span: " << s.shortestSpan() << std::endl;
     }
     catch(const std::exception& e)
     {

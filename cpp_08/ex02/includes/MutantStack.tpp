@@ -7,9 +7,8 @@ template <typename T>
 MutantStack<T>::MutantStack() : std::stack<T>() {};
 
 template <typename T>
-MutantStack<T>::MutantStack(const MutantStack &other) {
-    // ()
-    (void) other;
+MutantStack<T>::MutantStack(const MutantStack &other) : {
+    MutantStack::operator=(other);
 }
 
 template <typename T>
@@ -21,6 +20,11 @@ MutantStack<T>& MutantStack<T>::operator=(const MutantStack &other) {
         return *this;
     std::stack<T>::operator=(other);
     return *this;
+}
+
+template <typename T>
+unsigned int MutantStack<T>::getSize() const {
+    return this->std::stack<T>.size();
 }
 
 template <typename T>

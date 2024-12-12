@@ -39,7 +39,6 @@ void listTest()
     {
         std::cerr << e.what() << '\n';
     }
-
 }
 
 void  dequeTest()

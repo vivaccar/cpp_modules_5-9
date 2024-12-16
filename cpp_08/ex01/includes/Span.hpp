@@ -8,6 +8,7 @@
 #include <list>
 #include <vector>
 #include <limits.h>
+#include <ctime>
 
 #define BLUE "\033[34m"
 #define RED "\033[31m"

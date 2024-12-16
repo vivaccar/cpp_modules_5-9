@@ -29,16 +29,65 @@ int main()
     }
 
     {
-        std::cout << RED << "\nTEST 1" << RESET << std::endl;
+        std::cout << RED << "\nmyTEST <int>" << RESET << std::endl;
         MutantStack<int> s;
 
         s.push(1);
         s.push(2);
         s.push(10);
         s.push(-1);
+        s.push(12);
 
         for (MutantStack<int>::iterator it = s.begin(); it != s.end(); it++) {
+            *it = *it + 5; 
             std::cout << *it << " ";
         }
+        std::cout << std::endl;
+        
+        //const iterator
+        for (MutantStack<int>::const_iterator it = s.begin(); it != s.end(); it++) {
+            //*it = *it + 5; 
+            std::cout << *it << " ";
+        }
+    }
+
+    {
+        std::cout << RED << "\n\nmyTEST <string>" << RESET << std::endl;
+        MutantStack<std::string> s;
+
+        s.push("Hello");
+        s.push("World");
+        s.push(" ");
+        s.push("42");
+        s.push("\\o/");
+
+        for (MutantStack<std::string>::iterator it = s.begin(); it != s.end(); it++) {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    {
+        std::cout << RED << "\nmyTEST Copy operator and assignment" << RESET << std::endl;
+        MutantStack<std::string> s;
+
+        s.push("Hello");
+        s.push("World");
+        s.push(" ");
+        s.push("42");
+        s.push("\\o/");
+
+        MutantStack<std::string> s2(s);
+        MutantStack<std::string> s3;
+        s3 = s;
+
+        for (MutantStack<std::string>::iterator it = s2.begin(); it != s2.end(); it++) {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
+        for (MutantStack<std::string>::iterator it = s3.begin(); it != s3.end(); it++) {
+            std::cout << *it << " ";
+        }
+        std::cout << std::endl;
     }
 }

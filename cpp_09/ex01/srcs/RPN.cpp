@@ -1,12 +1,28 @@
 #include "../includes/RPN.hpp"
 
+RPN::RPN() {}
+
+RPN::RPN(const RPN &other) :_stack(other._stack) {};
+
+RPN::~RPN() {}
+
+RPN& RPN::operator=(const RPN &other) {
+    (void) other;
+    if (this == &other)
+        return *this;
+    this->_stack = other._stack;
+    return *this;
+}
+
+double RPN::getTop() {
+    return _stack.top();
+}
+
 bool    isOperator(char c) {
     if (c == '+' || c == '-' || c == '*' || c == '/')
         return true;
     return false;
 }
-
-RPN::RPN() {}
 
 void    RPN::calculate(char op) {
     double second = _stack.top();
@@ -56,22 +72,5 @@ RPN::RPN(std::string notation) {
         throw (std::invalid_argument("Error"));
 }
 
-double RPN::getTop() {
-    return _stack.top();
-}
-
-RPN::RPN(const RPN &other) {
-    (void) other;
-};
-
-RPN::~RPN() {}
-
-RPN& RPN::operator=(const RPN &other) {
-    (void) other;
-    if (this == &other)
-        return *this;
-    this->_stack = other._stack;
-    return *this;
-}
 
 

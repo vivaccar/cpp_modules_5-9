@@ -43,9 +43,9 @@ int main(void)
 
         s1.addNumber(v.begin(), v.end());
         s2 = s1;
-        std::cout << "STACK 1"<< std::endl;
+        std::cout << "List 1"<< std::endl;
         s2.print();
-        std::cout << "\nSTACK 2"<< std::endl;
+        std::cout << "\nList 2"<< std::endl;
         s1.print();
     }
     catch(const std::exception& e)
@@ -87,6 +87,7 @@ int main(void)
     std::cout << RED << "\n--------------------------------------\n" << RESET << std::endl;
     try
     {
+        srand(time(0));
         std::cout << GREEN << "\nTEST 5 --> 1000000 VALUES: \n" << RESET << std::endl;
         std::vector<int> v(100000);
         Span s(100000);
@@ -108,11 +109,12 @@ int main(void)
     try
     {
         std::cout << GREEN << "\nTEST 5 --> COPY CONSTRUCTOR: \n" << RESET << std::endl;
-        std::vector<int> v(100000);
-        Span s(100000);
+        std::vector<int> v(10);
+        Span s(10);
+        std::srand(time(0));
         std::generate(v.begin(), v.end(), rand);
         s.addNumber(v.begin(), v.end());
-        //s.print();
+        s.print();
         Span sCopy(s);
         std::cout << "Size s: " << s.getSize() << std::endl;
         std::cout << "Size sCopy: " << sCopy.getSize() << std::endl;

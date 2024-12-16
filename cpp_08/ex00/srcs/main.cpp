@@ -1,6 +1,5 @@
 #include "../includes/easyfind.hpp"
 
-
 void vectorTest()
 {
     std::cout << BLUE << "---VECTOR TEST---\n" << RESET << std::endl;
@@ -63,32 +62,9 @@ void  dequeTest()
     }
 }
 
-void setTest()
-{
-    std::cout << BLUE << "\n---SET TEST---\n" << RESET << std::endl;
-
-    std::set<int> s;
-    s.insert(1);
-    s.insert(-1);
-    s.insert(10);
-
-    std::set<int>::iterator find;
-
-    try
-    {
-        find = easyfind(s, -1);
-        std::cout << "Element " << *find << " was found in the set!" << std::endl;
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-}
-
 int main(void) 
 {   
     vectorTest();
     listTest();
     dequeTest();
-    setTest();
 }

@@ -29,6 +29,10 @@ class BitcoinExchange {
         void    print();
         float   getElement(std::string &key) const;
 
+        static void fillMap(BitcoinExchange &btcExchange, std::ifstream &btcDataBase);
+        static void parseDataBase(int ac, BitcoinExchange &btcExchange);
+        static void runInputFile(char *fileName, BitcoinExchange &btcExchange);
+        
         class NotPositiveNumber : public std::exception {
             public:
                 const char *what() const throw();
@@ -45,5 +49,15 @@ class BitcoinExchange {
         };
 
 };
+
+long double getValue(std::string &line);
+std::string getDate(std::string &line);
+bool        isLeapYear(int year);
+void        validateDate(int d, int m, int y);
+void        checkDate(std::string &date);
+bool        emptyValue(std::string &value);
+float       checkValue(std::string &value);
+std::string decreaseDate(std::string &date);
+bool        emptyLine(std::string &line);
 
 #endif

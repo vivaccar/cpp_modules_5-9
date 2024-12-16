@@ -24,12 +24,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange &other) {
 }
 
 void BitcoinExchange::addElement(const std::string &key, const float &value) {
-
     this->_btcValues.insert(std::make_pair(key, value));
-}
-
-void BitcoinExchange::print() {
-    // 
 }
 
 float BitcoinExchange::getElement(std::string &key)  const {

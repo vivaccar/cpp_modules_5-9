@@ -61,13 +61,13 @@ int main(int ac, char **av)
         PmergeMe::printDeque(deq);
         std::cout << "\nVECTOR BEFORE: ";
         PmergeMe::printVector(vec); 
-        double timeDeq = execDeque(deq);
+        //double timeDeq = execDeque(deq);
         double timeVec = execVector(vec);
         std::cout << "\nDEQUE AFTER: ";
-        PmergeMe::printDeque(deq);
+      //  PmergeMe::printDeque(deq);
         std::cout << "\nVECTOR AFTER: ";
         PmergeMe::printVector(vec); 
-        std::cout << "\nTime to process a range of " << deq.size() << " elements using std::deque: " << timeDeq << " us" << std::endl;
+        //std::cout << "\nTime to process a range of " << deq.size() << " elements using std::deque: " << timeDeq << " us" << std::endl;
         std::cout << "Time to process a range of " << vec.size() << " elements using std::vector: " << timeVec << " us" << std::endl;
     }
     catch(const std::exception& e)

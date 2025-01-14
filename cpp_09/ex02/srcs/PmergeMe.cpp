@@ -30,14 +30,16 @@ void PmergeMe::mergeInsertionSortVec(std::vector<int>& vector, size_t left, size
     }
 
     // Dividimos em pares
-    size_t mid = left + (right - left) / 2;
+    std::vector<std::pair<int, int> >    pairs;
+    for (unsigned int i = 0; i < vector.size(); i += 2)
+    {
+        if (vector[i] > vector[i + 1])
+            std::swap(vector[i], vector[i + 1]);
+        pairs.push_back(std::make_pair(vector[i], vector[i + 1]));
+    }
 
-    // Ordenamos recursivamente as duas metades
-    mergeInsertionSortVec(vector, left, mid);
-    mergeInsertionSortVec(vector, mid + 1, right);
-
-    // Mesclamos as duas metades
-    mergeVec(vector, left, mid, right);
+    for (unsigned int i = 0; i < pairs.size(); i++)
+        std::cout << pairs[i].first << " " << pairs[i].second << std::endl;
 }
 
 void PmergeMe::mergeVec(std::vector<int>& vector, size_t left, size_t mid, size_t right) {

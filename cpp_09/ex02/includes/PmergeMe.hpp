@@ -11,21 +11,19 @@
 #include <ctime>
 
 class PmergeMe {
-
+    private:
+        std::vector<int> mainChain;
+        std::vector<int> pendChain;
+    
     public:
         PmergeMe();
         PmergeMe(const PmergeMe &other);
         ~PmergeMe();
         PmergeMe& operator=(const PmergeMe &other);
 
-        static void        mergeMeVec(std::vector<int> &vector);
-        static void        mergeInsertionSortVec(std::vector<int>& vector, size_t left, size_t right);
-        static void        mergeVec(std::vector<int>& vector, size_t left, size_t mid, size_t right);
+        void    fordJohnsonVec(std::vector<int> &vector);
+        void    sortPairs(std::vector<int> &vector);
 
-        static void        mergeMeDeq(std::deque<int> &deque);
-        static void        mergeInsertionSortDeq(std::deque<int>& deque, size_t left, size_t right);
-        static void        mergeDeq(std::deque<int>& deque, size_t left, size_t mid, size_t right);
-        
         static void         printVector(std::vector<int> &vector);
         static void         printDeque(std::deque<int> &deque);
 };

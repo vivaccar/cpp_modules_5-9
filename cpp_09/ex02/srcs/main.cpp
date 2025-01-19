@@ -29,25 +29,6 @@ void    fillContainers(std::vector<int> &vec, std::deque<int> &deq, char **av)
     }
 }
 
-double    execDeque(std::deque<int> &deque)
-{
-    std::clock_t    start, end;
-    
-    start = std::clock();
-    PmergeMe::mergeMeDeq(deque);
-    end = std::clock();
-    return ((end - start) / static_cast<double>(CLOCKS_PER_SEC / 1000000));
-}
-
-double    execVector(std::vector<int> &vector)
-{
-    std::clock_t    start, end;
-    
-    start = std::clock();
-    PmergeMe::mergeMeVec(vector);
-    end = std::clock();
-    return ((end - start) / static_cast<double>(CLOCKS_PER_SEC / 1000000));
-}
 
 int main(int ac, char **av)
 {
@@ -57,18 +38,6 @@ int main(int ac, char **av)
     try
     {
         fillContainers(vec, deq, av);
-        std::cout << "DEQUE BEFORE: ";
-        PmergeMe::printDeque(deq);
-        std::cout << "\nVECTOR BEFORE: ";
-        PmergeMe::printVector(vec); 
-        //double timeDeq = execDeque(deq);
-        double timeVec = execVector(vec);
-        std::cout << "\nDEQUE AFTER: ";
-      //  PmergeMe::printDeque(deq);
-        std::cout << "\nVECTOR AFTER: ";
-        PmergeMe::printVector(vec); 
-        //std::cout << "\nTime to process a range of " << deq.size() << " elements using std::deque: " << timeDeq << " us" << std::endl;
-        std::cout << "Time to process a range of " << vec.size() << " elements using std::vector: " << timeVec << " us" << std::endl;
     }
     catch(const std::exception& e)
     {

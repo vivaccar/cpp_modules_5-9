@@ -33,58 +33,52 @@ void    PmergeMe::pairComparison(std::vector<int> &mainChain, std::vector<int> &
 }
 
 
-void    PmergeMe::mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int mid, int right) {
+void PmergeMe::mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int mid, int right) {
+    // Criar subvetores
     std::vector<int> leftMain(mainChain.begin() + left, mainChain.begin() + mid + 1);
     std::vector<int> rightMain(mainChain.begin() + mid + 1, mainChain.begin() + right + 1);
 
     std::vector<int> leftPend(pendChain.begin() + left, pendChain.begin() + mid + 1);
     std::vector<int> rightPend(pendChain.begin() + mid + 1, pendChain.begin() + right + 1);
 
-    std::vector<int>::iterator itMain = mainChain.begin() + left;
-    std::vector<int>::iterator itPend = pendChain.begin() + left;
-    std::vector<int>::iterator itLeftMain = leftMain.begin();
-    std::vector<int>::iterator itRightMain = rightMain.begin();
-    std::vector<int>::iterator itLeftPend = leftPend.begin();
-    std::vector<int>::iterator itRightPend = rightPend.begin();
+    // Iteradores para percorrer os subvetores e o vetor principal
+    size_t mainIdx = left;
+    size_t leftIdx = 0, rightIdx = 0;
 
-    while (itLeftMain != leftMain.end() && itRightMain != rightMain.end() && itLeftPend != leftPend.end() && itRightPend != rightPend.end())
+    // Mesclar os subvetores enquanto houver elementos em ambos
+    while (leftIdx < leftMain.size() && rightIdx < rightMain.size())
     {
-        if (*itLeftMain <= *itRightMain)
+        if (leftMain[leftIdx] <= rightMain[rightIdx])
         {
-            *itMain = *itLeftMain;
-            *itPend = *itLeftPend;
-            itLeftMain++;
-            itLeftPend++;
+            mainChain[mainIdx] = leftMain[leftIdx];
+            pendChain[mainIdx] = leftPend[leftIdx];
+            leftIdx++;
         }
         else
         {
-            *itMain = *itRightMain;
-            *itPend = *itRightPend;
-            itRightMain++;
-            itRightPend++;
+            mainChain[mainIdx] = rightMain[rightIdx];
+            pendChain[mainIdx] = rightPend[rightIdx];
+            rightIdx++;
         }
-        itMain++;
-        itPend++;
+        mainIdx++;
     }
 
-    while (itLeftMain != leftMain.end() && itLeftPend != leftPend.end())
+    // Copiar os elementos restantes do lado esquerdo
+    while (leftIdx < leftMain.size())
     {
-        *itMain = *itLeftMain;
-        *itPend = *itLeftPend;
-        itLeftMain++;
-        itLeftPend++;
-        itMain++;
-        itPend++;
+        mainChain[mainIdx] = leftMain[leftIdx];
+        pendChain[mainIdx] = leftPend[leftIdx];
+        leftIdx++;
+        mainIdx++;
     }
 
-    while (itRightMain != rightMain.end() && itRightPend != rightPend.end())
+    // Copiar os elementos restantes do lado direito
+    while (rightIdx < rightMain.size())
     {
-        *itMain = *itRightMain;
-        *itPend = *itRightPend;
-        itRightMain++;
-        itRightPend++;
-        itMain++;
-        itPend++;
+        mainChain[mainIdx] = rightMain[rightIdx];
+        pendChain[mainIdx] = rightPend[rightIdx];
+        rightIdx++;
+        mainIdx++;
     }
 }
 

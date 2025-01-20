@@ -10,22 +10,28 @@
 #include <limits>
 #include <ctime>
 
-class PmergeMe {
-    private:
-        std::vector<int> mainChain;
-        std::vector<int> pendChain;
-    
-    public:
-        PmergeMe();
-        PmergeMe(const PmergeMe &other);
-        ~PmergeMe();
-        PmergeMe& operator=(const PmergeMe &other);
 
-        void    fordJohnsonVec(std::vector<int> &vector);
-        void    sortPairs(std::vector<int> &vector);
+class PmergeMe
+{
+private:
+    T mainChain;
+    T pendChain;
 
-        static void         printVector(std::vector<int> &vector);
-        static void         printDeque(std::deque<int> &deque);
+
+public:
+    PmergeMe();
+    PmergeMe(const PmergeMe &other);
+    PmergeMe &operator=(const PmergeMe &other);
+    ~PmergeMe();
+
+    void merge(int left, int mid, int right);
+    void binaryInsert(int left, int right, int number);
+    void mergeSort(int left, int right);
+    void insert(void);
+
+    int getSizeMain() const;
+
 };
+
 
 #endif

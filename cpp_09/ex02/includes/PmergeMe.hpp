@@ -19,7 +19,9 @@ class PmergeMe
         PmergeMe &operator=(const PmergeMe &other);
         ~PmergeMe();
 
-        
+        static void    printVec(std::vector<int> &vector);
+        static void    fordJohnsonVector(std::vector<int> &vector);
+        static void    pairComparison(std::vector<int> &mainChain, std::vector<int> &pendChain, std::vector<int> &vector);
 };
 
 

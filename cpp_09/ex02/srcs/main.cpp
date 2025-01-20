@@ -38,6 +38,7 @@ int main(int ac, char **av)
     try
     {
         fillContainers(vec, deq, av);
+        PmergeMe::fordJohnsonVector(vec);
     }
     catch(const std::exception& e)
     {

@@ -91,6 +91,15 @@ void    PmergeMe::mergeSortVec(std::vector<int> &mainChain, std::vector<int> &pe
     mergeVec(mainChain, pendChain, left, mid, right);
 }
 
+std::vector<int>    &PmergeMe::insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain) {
+    std::vector<int> &sortedVector(mainChain);
+    (void) pendChain;
+
+    sortedVector.insert(sortedVector.begin(), pendChain[0]);
+    printVec(sortedVector);
+    return sortedVector;
+}
+
 void    PmergeMe::fordJohnsonVector(std::vector<int> &vector) {
     
     std::vector<int> mainChain;
@@ -100,7 +109,7 @@ void    PmergeMe::fordJohnsonVector(std::vector<int> &vector) {
     std::cout << "MAIN CHAIN: ";
     printVec(mainChain);
 
-    std::cout << "pend CHAIN: ";
+    std::cout << "PEND CHAIN: ";
     printVec(pendChain);
 
     mergeSortVec(mainChain, pendChain, 0, mainChain.size() -1);
@@ -109,8 +118,11 @@ void    PmergeMe::fordJohnsonVector(std::vector<int> &vector) {
     std::cout << "MAIN CHAIN: ";
     printVec(mainChain);
 
-    std::cout << "pend CHAIN: ";
+    std::cout << "PEND CHAIN: ";
     printVec(pendChain);
+
+
+    vector = insertVec(mainChain, pendChain);
 }
 
 void    PmergeMe::printVec(std::vector<int> &vector) {

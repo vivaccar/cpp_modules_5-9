@@ -24,6 +24,7 @@ class PmergeMe
         static void    pairComparison(std::vector<int> &mainChain, std::vector<int> &pendChain, std::vector<int> &vector);
         static void    mergeSortVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int right);
         static void    mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int mid, int right);
+        static std::vector<int>    &insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain);
 };
 
 

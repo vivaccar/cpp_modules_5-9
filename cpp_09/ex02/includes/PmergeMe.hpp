@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <limits>
 #include <ctime>
+#include <numeric>
 
 
 class PmergeMe

@@ -91,11 +91,39 @@ void    PmergeMe::mergeSortVec(std::vector<int> &mainChain, std::vector<int> &pe
     mergeVec(mainChain, pendChain, left, mid, right);
 }
 
+std::vector<int>    Jacobsthal(size_t size)
+{
+    std::vector<int> jacobSequence;
+
+    int j_m1 = 2;
+    int j_m2 = 2;
+    size_t counter = 0;
+
+    if (size >= 2)
+    {
+        jacobSequence.push_back(j_m1);
+        if (size >= 4)
+            jacobSequence.push_back(j_m2);
+    }
+    counter = std::accumulate(jacobSequence.begin(), jacobSequence.end(), 0);
+    std::cout << counter << std::endl;
+    
+    return jacobSequence;
+}
+
 std::vector<int>    &PmergeMe::insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain) {
+    
     std::vector<int> &sortedVector(mainChain);
     (void) pendChain;
 
+    // insiro o primeiro elemento de pend no inicio de mainChain
     sortedVector.insert(sortedVector.begin(), pendChain[0]);
+    pendChain.erase(pendChain.begin());
+    
+    std::vector<int> jacobSequence = Jacobsthal(pendChain.size());
+    
+    printVec(jacobSequence);
+    printVec(pendChain);
     printVec(sortedVector);
     return sortedVector;
 }

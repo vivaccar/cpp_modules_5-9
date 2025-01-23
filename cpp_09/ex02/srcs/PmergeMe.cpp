@@ -120,8 +120,72 @@ std::vector<int>    Jacobsthal(size_t size)
             counter = std::accumulate(jacobSequence.begin(), jacobSequence.end(), 0);
         }
     }
-    
     return jacobSequence;
+}
+
+
+void binaryInsert(std::vector<int>& vec, int value) {
+    std::vector<int>::iterator low = vec.begin();
+    std::vector<int>::iterator high = vec.end();
+
+    // Busca binária para encontrar a posição correta de inserção
+    while (low < high) 
+    {
+        std::vector<int>::iterator mid = low + (high - low) / 2;
+        if (*mid < value)
+            low = mid + 1;
+        else
+            high = mid;
+    }
+
+    // Insere o elemento na posição correta
+    vec.insert(low, value);
+}
+
+
+
+std::vector<std::pair<int, std::vector<int>::iterator> >  createInsertionSeq(std::vector<int> &mainChain, std::vector<int> &pendChain, std::vector<int> jacobSequence)
+{
+    std::vector<std::pair<int, std::vector<int>::iterator> > pairs;
+    std::vector<int>::iterator mBegin = mainChain.begin();
+    std::vector<int>::iterator pBegin = pendChain.begin();
+    (void) jacobSequence;
+    
+    mBegin += 2;
+    while (pBegin != pendChain.end())
+    {
+        
+        pairs.push_back(std::make_pair(*pBegin, mBegin));
+        mBegin++;
+        if (mBegin == mainChain.end())
+            break;
+        pBegin++;
+    }
+    
+    std::cout << "MAIN CHAIN: ";
+    PmergeMe::printVec(mainChain);
+    std::cout << "\npend CHAIN: ";
+
+    PmergeMe::printVec(pendChain);
+
+    //TEST PAIRS
+    for (std::vector<std::pair<int, std::vector<int>::iterator> >::iterator it = pairs.begin(); it != pairs.end(); it++)
+        std::cout << it->first << " is pointing to -> " << *it->second << std::endl; 
+    
+    for (std::vector<int>::iterator it = jacobSequence.begin(); it != jacobSequence.end(); it++)
+    {
+        int nbrsToInsert = *it;
+        while (nbrsToInsert > 0)
+        {
+            std::vector<int> insertionVector
+        }
+    }
+    std::vector<std::pair<int, std::vector<int>::iterator> >::iterator it = pairs.begin();
+    std::vector<int> subVector(mainChain.begin(), it->second);
+    PmergeMe::printVec(subVector);
+    binaryInsert(subVector, it->first);
+    PmergeMe::printVec(subVector);
+    return pairs;
 }
 
 std::vector<int>    &PmergeMe::insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain) {
@@ -135,10 +199,14 @@ std::vector<int>    &PmergeMe::insertVec(std::vector<int> &mainChain, std::vecto
     if (pendChain.size() == 0)
         return sortedVector;
     std::vector<int> jacobSequence = Jacobsthal(pendChain.size());
+    //std::cout << "AFTER JACOB SEQUENCE CREATED";
+    //std::cout << "JACOBS:";
+    // FAZER PARES DOS ITENS DA PEND COM ITERADORES PARA SEU PAR NA MAIN;
+    std::vector<std::pair<int, std::vector<int>::iterator> > pairs = createInsertionSeq(mainChain, pendChain, jacobSequence);
+    (void) pairs;
     
-    std::cout << "AFTER JACOB SEQUENCE CREATED ";    
-    std::cout << "JACOBS: ";
-    printVec(jacobSequence);
+    //printVec(jacobSequence);
+    
     return sortedVector;
 }
 
@@ -148,28 +216,11 @@ void    PmergeMe::fordJohnsonVector(std::vector<int> &vector) {
     std::vector<int> pendChain;
 
     pairComparison(mainChain, pendChain, vector);
-    std::cout << "MAIN CHAIN: ";
-    printVec(mainChain);
-
-    std::cout << "PEND CHAIN: ";
-    printVec(pendChain);
-
     mergeSortVec(mainChain, pendChain, 0, mainChain.size() -1);
-
-    std::cout << "\nAFTER\n";
-    std::cout << "MAIN CHAIN: ";
-    printVec(mainChain);
-
-    std::cout << "PEND CHAIN: ";
-    printVec(pendChain);
 
     if (pendChain.size() > 0)
         vector = insertVec(mainChain, pendChain);
-    
-    std::cout << "PEND CHAIN: ";
-    printVec(pendChain);
-    std::cout << "MAIN CHAIN: ";
-    printVec(vector);
+
 
 }
 

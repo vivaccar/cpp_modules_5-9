@@ -99,14 +99,27 @@ std::vector<int>    Jacobsthal(size_t size)
     int j_m2 = 2;
     size_t counter = 0;
 
-    if (size >= 2)
+    while (counter < size)
     {
-        jacobSequence.push_back(j_m1);
-        if (size >= 4)
-            jacobSequence.push_back(j_m2);
+        if (counter == 0)
+        {
+            jacobSequence.push_back(2);
+            counter = std::accumulate(jacobSequence.begin(), jacobSequence.end(), 0);
+        }
+        else if (counter == 2)
+        {
+            jacobSequence.push_back(2);
+            counter = std::accumulate(jacobSequence.begin(), jacobSequence.end(), 0);
+        }
+        else
+        {
+            int jacobstahl = j_m1 + 2 * j_m2;
+            j_m2 = j_m1;
+            j_m1 = jacobstahl;
+            jacobSequence.push_back(jacobstahl);
+            counter = std::accumulate(jacobSequence.begin(), jacobSequence.end(), 0);
+        }
     }
-    counter = std::accumulate(jacobSequence.begin(), jacobSequence.end(), 0);
-    std::cout << counter << std::endl;
     
     return jacobSequence;
 }
@@ -114,17 +127,18 @@ std::vector<int>    Jacobsthal(size_t size)
 std::vector<int>    &PmergeMe::insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain) {
     
     std::vector<int> &sortedVector(mainChain);
-    (void) pendChain;
 
     // insiro o primeiro elemento de pend no inicio de mainChain
     sortedVector.insert(sortedVector.begin(), pendChain[0]);
     pendChain.erase(pendChain.begin());
     
+    if (pendChain.size() == 0)
+        return sortedVector;
     std::vector<int> jacobSequence = Jacobsthal(pendChain.size());
     
+    std::cout << "AFTER JACOB SEQUENCE CREATED ";    
+    std::cout << "JACOBS: ";
     printVec(jacobSequence);
-    printVec(pendChain);
-    printVec(sortedVector);
     return sortedVector;
 }
 
@@ -149,8 +163,14 @@ void    PmergeMe::fordJohnsonVector(std::vector<int> &vector) {
     std::cout << "PEND CHAIN: ";
     printVec(pendChain);
 
+    if (pendChain.size() > 0)
+        vector = insertVec(mainChain, pendChain);
+    
+    std::cout << "PEND CHAIN: ";
+    printVec(pendChain);
+    std::cout << "MAIN CHAIN: ";
+    printVec(vector);
 
-    vector = insertVec(mainChain, pendChain);
 }
 
 void    PmergeMe::printVec(std::vector<int> &vector) {

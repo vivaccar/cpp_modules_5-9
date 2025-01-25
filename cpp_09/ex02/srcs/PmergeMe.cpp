@@ -124,9 +124,8 @@ std::vector<int>    Jacobsthal(size_t size)
 }
 
 
-void binaryInsert(std::vector<int>& vec, int value) {
+void binaryInsert(std::vector<int>& vec, int value, std::vector<int>::iterator high) {
     std::vector<int>::iterator low = vec.begin();
-    std::vector<int>::iterator high = vec.end();
 
     // Busca binária para encontrar a posição correta de inserção
     while (low < high) 
@@ -169,22 +168,40 @@ std::vector<std::pair<int, std::vector<int>::iterator> >  createInsertionSeq(std
     PmergeMe::printVec(pendChain);
 
     //TEST PAIRS
-    for (std::vector<std::pair<int, std::vector<int>::iterator> >::iterator it = pairs.begin(); it != pairs.end(); it++)
-        std::cout << it->first << " is pointing to -> " << *it->second << std::endl; 
+/*     for (std::vector<std::pair<int, std::vector<int>::iterator> >::iterator it = pairs.begin(); it != pairs.end(); it++)
+        std::cout << it->first << " is pointing to -> " << *it->second << std::endl; */ 
     
+    std::vector<std::pair<int, std::vector<int>::iterator> >::iterator pairsIt = pairs.begin();
     for (std::vector<int>::iterator it = jacobSequence.begin(); it != jacobSequence.end(); it++)
     {
-        int nbrsToInsert = *it;
-        while (nbrsToInsert > 0)
+        int nbsLeft = std::distance(pairsIt, pairs.end());
+        std::cout << "NUmbers lefting in the PEND  to insert " << nbsLeft << std::endl;
+        int nbrsToInsert = std::min(nbsLeft, *it);
+        if (nbsLeft < *it)
+            nbrsToInsert = nbsLeft;
+        std::vector<std::pair<int, std::vector<int>::iterator> > subPair(pairsIt, pairsIt + nbrsToInsert);
+        for (std::vector<std::pair<int, std::vector<int>::iterator> >::iterator it = pairs.begin(); it != pairs.end(); it++)
+            std::cout << it->first << " is pointing to -> " << *it->second << std::endl;
+        for (std::vector<std::pair<int, std::vector<int>::iterator> >::iterator it = subPair.begin(); it != subPair.end(); it++)
+            std::cout << it->first << " is pointing to -> " << *it->second << std::endl;
+        while (1)
         {
-            std::vector<int> insertionVector
+            std::vector<std::pair<int, std::vector<int>::iterator> >::iterator insertIt = subPair.end() - 1;
+            binaryInsert(mainChain, insertIt->first, insertIt->second);
+            std::cout << " O NUMERO QUE VAI SER INSERIDO AGORA --> " << insertIt->first << std::endl;
+            std::cout << " O NUMERO QUE VAI SER COMPARADO --> " << *insertIt->second << std::endl; 
+            PmergeMe::printVec(mainChain);
+            subPair.erase(subPair.end() - 1);
+            if (insertIt == subPair.begin())
+                break;
+            insertIt--;
         }
+        std::cout << "TESTEEE -->>>> ";
+        PmergeMe::printVec(mainChain);
+        pairsIt += nbrsToInsert;
+        std::cout << "new group " << std::endl;
     }
-    std::vector<std::pair<int, std::vector<int>::iterator> >::iterator it = pairs.begin();
-    std::vector<int> subVector(mainChain.begin(), it->second);
-    PmergeMe::printVec(subVector);
-    binaryInsert(subVector, it->first);
-    PmergeMe::printVec(subVector);
+
     return pairs;
 }
 

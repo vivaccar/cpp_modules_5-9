@@ -1,4 +1,4 @@
-SRCS = srcs/main.cpp srcs/PmergeMe.cpp
+SRCS = srcs/main.cpp srcs/PmergeMe.cpp srcs/Vector.cpp srcs/Deque.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 

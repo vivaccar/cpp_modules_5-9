@@ -1,37 +1,31 @@
 #include "../includes/PmergeMe.hpp"
 
-void    pairComparisonVec(std::vector<int> &mainChain, std::vector<int> &pendChain, std::vector<int> &vector) {
-    for (unsigned int i = 0; i < vector.size() - 1; i += 2)
+void    pairComparisonDeq(std::deque<int> &mainChain, std::deque<int> &pendChain, std::deque<int> &deque)
+{
+    for (unsigned int i = 0; i < deque.size() - 1; i += 2)
     {
-        if (vector[i] > vector[i + 1])
+        if (deque[i] > deque[i + 1])
         {
-            mainChain.push_back(vector[i]);
-            pendChain.push_back(vector[i + 1]);
+            mainChain.push_back(deque[i]);
+            pendChain.push_back(deque[i + 1]);
         }
         else
         {
-            mainChain.push_back(vector[i + 1]);
-            pendChain.push_back(vector[i]);
+            mainChain.push_back(deque[i + 1]);
+            pendChain.push_back(deque[i]);
         }
     }
-    if (vector.size() % 2 == 1)
-        pendChain.push_back(vector[vector.size() - 1]);
+    if (deque.size() % 2 == 1)
+        pendChain.push_back(deque[deque.size() - 1]);
 }
 
-
-void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int mid, int right) {
-    // Criar subvetores
-    std::vector<int> leftMain(mainChain.begin() + left, mainChain.begin() + mid + 1);
-    std::vector<int> rightMain(mainChain.begin() + mid + 1, mainChain.begin() + right + 1);
-
-    std::vector<int> leftPend(pendChain.begin() + left, pendChain.begin() + mid + 1);
-    std::vector<int> rightPend(pendChain.begin() + mid + 1, pendChain.begin() + right + 1);
-
-    // Iteradores para percorrer os subvetores e o vetor principal
+void mergeDeq(std::deque<int> &mainChain, std::deque<int> &pendChain, int left, int mid, int right) {
+    std::deque<int> leftMain(mainChain.begin() + left, mainChain.begin() + mid + 1);
+    std::deque<int> rightMain(mainChain.begin() + mid + 1, mainChain.begin() + right + 1);
+    std::deque<int> leftPend(pendChain.begin() + left, pendChain.begin() + mid + 1);
+    std::deque<int> rightPend(pendChain.begin() + mid + 1, pendChain.begin() + right + 1);
     size_t mainIdx = left;
     size_t leftIdx = 0, rightIdx = 0;
-
-    // Mesclar os subvetores enquanto houver elementos em ambos
     while (leftIdx < leftMain.size() && rightIdx < rightMain.size())
     {
         if (leftMain[leftIdx] <= rightMain[rightIdx])
@@ -48,8 +42,6 @@ void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left
         }
         mainIdx++;
     }
-
-    // Copiar os elementos restantes do lado esquerdo
     while (leftIdx < leftMain.size())
     {
         mainChain[mainIdx] = leftMain[leftIdx];
@@ -57,8 +49,6 @@ void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left
         leftIdx++;
         mainIdx++;
     }
-
-    // Copiar os elementos restantes do lado direito
     while (rightIdx < rightMain.size())
     {
         mainChain[mainIdx] = rightMain[rightIdx];
@@ -68,18 +58,19 @@ void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left
     }
 }
 
-void    mergeSortVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int right) {
+void    mergeSortDeq(std::deque<int> &mainChain, std::deque<int> &pendChain, int left, int right)
+{
     if (left >= right)
         return ;
     int mid = left + (right - left) / 2;
-    mergeSortVec(mainChain, pendChain, left, mid);
-    mergeSortVec(mainChain, pendChain, mid + 1, right);
-    mergeVec(mainChain, pendChain, left, mid, right);
+    mergeSortDeq(mainChain, pendChain, left, mid);
+    mergeSortDeq(mainChain, pendChain, mid + 1, right);
+    mergeDeq(mainChain, pendChain, left, mid, right);
 }
 
-std::vector<int>    JacobsthalVec(size_t size)
+std::deque<int>    Jacobsthal(size_t size)
 {
-    std::vector<int> jacobSequence;
+    std::deque<int> jacobSequence;
 
     int j_m1 = 2;
     int j_m2 = 2;
@@ -110,53 +101,60 @@ std::vector<int>    JacobsthalVec(size_t size)
 }
 
 
-void binaryInsertVec(std::vector<int> &vec, int value, int size)
+void binaryInsertDeq(std::deque<int> &deq, int value, int size)
 {
-    if (static_cast<int>(vec.size()) < size)
-        size = static_cast<int>(vec.size());
+    if (static_cast<int>(deq.size()) < size)
+        size = static_cast<int>(deq.size());
 
     int left = 0, right = size - 1;
     while (left <= right)
     {
         int mid = left + (right - left) / 2;
-        if (vec[mid] < value)
+        if (deq[mid] < value)
             left = mid + 1;
         else
             right = mid - 1;
     }
 
-    vec.insert(vec.begin() + left, value);
+    deq.insert(deq.begin() + left, value);
+}
+
+void    printDeq(std::deque<int> &deque) {
+    for (std::deque<int>::iterator it = deque.begin(); it != deque.end(); it++) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
 }
 
 // Função principal para criar e gerenciar a sequência de inserção
-void insertion(std::vector<int> &mainChain, std::vector<int> &pendChain, std::vector<int> jacobSequence)
+void insertion(std::deque<int> &mainChain, std::deque<int> &pendChain, std::deque<int> jacobSequence)
 {
-    std::vector<int>::iterator pendIt = pendChain.begin();
+    std::deque<int>::iterator pendIt = pendChain.begin();
     int groupIdx = 1;
-    for (std::vector<int>::iterator jacobIt = jacobSequence.begin(); jacobIt != jacobSequence.end(); jacobIt++)
+    for (std::deque<int>::iterator jacobIt = jacobSequence.begin(); jacobIt != jacobSequence.end(); jacobIt++)
     {
         std::cout << "\n\n";
         std::cout << "NEXT GROUP WILL BE INSERTED:\nJacob number(GROUP SIZE) --> " << *jacobIt << std::endl;
         std::cout << "MAIN CHAIN--> ";
-        printVec(mainChain);
+        printDeq(mainChain);
         std::cout << "\nPEND CHAIN-->";
-        printVec(mainChain);
+        printDeq(mainChain);
         
         
         int nbrsLeft = std::distance(pendIt, pendChain.end());
         int size = *jacobIt;
         if (nbrsLeft < size)
             size = nbrsLeft;
-        std::vector<int> group(pendIt, pendIt + size);
+        std::deque<int> group(pendIt, pendIt + size);
         int mainLenght = std::pow(2, groupIdx + 1) - 1;
-        for (std::vector<int>::iterator insertionIt = group.end() - 1; insertionIt != group.begin(); insertionIt--)
-            binaryInsertVec(mainChain, *insertionIt, mainLenght);
-        binaryInsertVec(mainChain, *group.begin(), mainLenght);
+        for (std::deque<int>::iterator insertionIt = group.end() - 1; insertionIt != group.begin(); insertionIt--)
+            binaryInsertDeq(mainChain, *insertionIt, mainLenght);
+        binaryInsertDeq(mainChain, *group.begin(), mainLenght);
         std::cout << "\nGROUP TO INSERT --> ";
-        printVec(group);
+        printDeq(group);
         std::cout << "\nGROUP size--> " << size << std::endl;
         std::cout << "Main size to find " << mainLenght << std::endl;
-        printVec(mainChain);
+        printDeq(mainChain);
         pendIt += size;
         groupIdx++;
     }
@@ -164,7 +162,7 @@ void insertion(std::vector<int> &mainChain, std::vector<int> &pendChain, std::ve
 
 
 
-void    insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain) {
+void    insertDeq(std::deque<int> &mainChain, std::deque<int> &pendChain) {
     
     // insiro o primeiro elemento de pend no inicio de mainChain
     mainChain.insert(mainChain.begin(), pendChain[0]);
@@ -172,13 +170,6 @@ void    insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain) {
     
     if (pendChain.size() == 0)
         return ;
-    std::vector<int> jacobSequence = JacobsthalVec(pendChain.size());
+    std::deque<int> jacobSequence = Jacobsthal(pendChain.size());
     insertion(mainChain, pendChain, jacobSequence);
-}
-
-void    printVec(std::vector<int> &vector) {
-    for (std::vector<int>::iterator it = vector.begin(); it != vector.end(); it++) {
-        std::cout << *it << " ";
-    }
-    std::cout << std::endl;
 }

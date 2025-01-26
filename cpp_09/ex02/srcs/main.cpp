@@ -40,6 +40,17 @@ void    testIsSorted(std::vector<int> &vector) {
     std::cout << GREEN << "CORRECT: THE CONTAINER IS SORTED" << RESET << std::endl;
 }
 
+void    testIsSorted2(std::deque<int> &deque) {
+    for (std::deque<int>::iterator it = deque.begin(); it + 1 != deque.end(); it++) {
+        if (*it > *(it + 1))
+        {
+            std::cout << RED << "ERROR: THE CONTAINER IS NOT SORTED" << RESET << std::endl;
+            return;
+        }
+    }
+    std::cout << GREEN << "CORRECT: THE CONTAINER IS SORTED" << RESET << std::endl;
+}
+
 
 
 int main(int ac, char **av)
@@ -51,6 +62,7 @@ int main(int ac, char **av)
     {
         fillContainers(vec, deq, av);
         PmergeMe::fordJohnsonVector(vec);
+        PmergeMe::fordJohnsonDeque(deq);
     }
     catch(const std::exception& e)
     {
@@ -59,4 +71,5 @@ int main(int ac, char **av)
     }
 
     testIsSorted(vec);
+    testIsSorted2(deq);
 }

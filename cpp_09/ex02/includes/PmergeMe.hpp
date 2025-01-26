@@ -1,6 +1,10 @@
 #ifndef PMERGEME_HPP
 #define PMERGEME_HPP
 
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define RESET "\033[0m"
+
 #include <vector>
 #include <deque>
 #include <iostream>
@@ -10,6 +14,7 @@
 #include <limits>
 #include <ctime>
 #include <numeric>
+#include <cmath>
 
 
 class PmergeMe
@@ -20,12 +25,13 @@ class PmergeMe
         PmergeMe &operator=(const PmergeMe &other);
         ~PmergeMe();
 
-        static void    printVec(std::vector<int> &vector);
         static void    fordJohnsonVector(std::vector<int> &vector);
+        
+        static void    printVec(std::vector<int> &vector);
         static void    pairComparison(std::vector<int> &mainChain, std::vector<int> &pendChain, std::vector<int> &vector);
         static void    mergeSortVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int right);
         static void    mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int mid, int right);
-        static std::vector<int>    &insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain);
+        static void    insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain);
 };
 
 

@@ -29,6 +29,18 @@ void    fillContainers(std::vector<int> &vec, std::deque<int> &deq, char **av)
     }
 }
 
+void    testIsSorted(std::vector<int> &vector) {
+    for (std::vector<int>::iterator it = vector.begin(); it + 1 != vector.end(); it++) {
+        if (*it > *(it + 1))
+        {
+            std::cout << RED << "ERROR: THE CONTAINER IS NOT SORTED" << RESET << std::endl;
+            return;
+        }
+    }
+    std::cout << GREEN << "CORRECT: THE CONTAINER IS SORTED" << RESET << std::endl;
+}
+
+
 
 int main(int ac, char **av)
 {
@@ -45,4 +57,6 @@ int main(int ac, char **av)
         std::cerr << e.what() << std::endl;
         return 1;
     }
+
+    testIsSorted(vec);
 }

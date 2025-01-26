@@ -15,10 +15,11 @@
 #include <ctime>
 #include <numeric>
 #include <cmath>
+#include <algorithm>
 
 
 class PmergeMe
-{
+{   
     public:
         PmergeMe();
         PmergeMe(const PmergeMe &other);

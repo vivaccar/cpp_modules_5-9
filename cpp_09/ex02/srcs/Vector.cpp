@@ -20,18 +20,16 @@ void    pairComparisonVec(std::vector<int> &mainChain, std::vector<int> &pendCha
 
 
 void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left, int mid, int right) {
-    // Criar subvetores
+    // subvectors
     std::vector<int> leftMain(mainChain.begin() + left, mainChain.begin() + mid + 1);
     std::vector<int> rightMain(mainChain.begin() + mid + 1, mainChain.begin() + right + 1);
 
     std::vector<int> leftPend(pendChain.begin() + left, pendChain.begin() + mid + 1);
     std::vector<int> rightPend(pendChain.begin() + mid + 1, pendChain.begin() + right + 1);
 
-    // Iteradores para percorrer os subvetores e o vetor principal
     size_t mainIdx = left;
     size_t leftIdx = 0, rightIdx = 0;
 
-    // Mesclar os subvetores enquanto houver elementos em ambos
     while (leftIdx < leftMain.size() && rightIdx < rightMain.size())
     {
         if (leftMain[leftIdx] <= rightMain[rightIdx])
@@ -49,7 +47,7 @@ void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left
         mainIdx++;
     }
 
-    // Copiar os elementos restantes do lado esquerdo
+    // Copyremaining elements from the left side
     while (leftIdx < leftMain.size())
     {
         mainChain[mainIdx] = leftMain[leftIdx];
@@ -58,7 +56,7 @@ void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left
         mainIdx++;
     }
 
-    // Copiar os elementos restantes do lado direito
+    // Copyremaining elements from the right side
     while (rightIdx < rightMain.size())
     {
         mainChain[mainIdx] = rightMain[rightIdx];
@@ -109,7 +107,6 @@ std::vector<int>    JacobsthalVec(size_t size)
     return jacobSequence;
 }
 
-
 void binaryInsertVec(std::vector<int> &vec, int value, int size)
 {
     if (static_cast<int>(vec.size()) < size)
@@ -128,21 +125,12 @@ void binaryInsertVec(std::vector<int> &vec, int value, int size)
     vec.insert(vec.begin() + left, value);
 }
 
-// Função principal para criar e gerenciar a sequência de inserção
 void insertion(std::vector<int> &mainChain, std::vector<int> &pendChain, std::vector<int> jacobSequence)
 {
     std::vector<int>::iterator pendIt = pendChain.begin();
     int groupIdx = 1;
     for (std::vector<int>::iterator jacobIt = jacobSequence.begin(); jacobIt != jacobSequence.end(); jacobIt++)
     {
-        std::cout << "\n\n";
-        std::cout << "NEXT GROUP WILL BE INSERTED:\nJacob number(GROUP SIZE) --> " << *jacobIt << std::endl;
-        std::cout << "MAIN CHAIN--> ";
-        printVec(mainChain);
-        std::cout << "\nPEND CHAIN-->";
-        printVec(mainChain);
-        
-        
         int nbrsLeft = std::distance(pendIt, pendChain.end());
         int size = *jacobIt;
         if (nbrsLeft < size)
@@ -152,21 +140,32 @@ void insertion(std::vector<int> &mainChain, std::vector<int> &pendChain, std::ve
         for (std::vector<int>::iterator insertionIt = group.end() - 1; insertionIt != group.begin(); insertionIt--)
             binaryInsertVec(mainChain, *insertionIt, mainLenght);
         binaryInsertVec(mainChain, *group.begin(), mainLenght);
-        std::cout << "\nGROUP TO INSERT --> ";
-        printVec(group);
-        std::cout << "\nGROUP size--> " << size << std::endl;
-        std::cout << "Main size to find " << mainLenght << std::endl;
-        printVec(mainChain);
         pendIt += size;
         groupIdx++;
     }
 }
 
+/* 
+        // INSERTION SEQUENCE DEMOSTRATION
+        
+        std::cout << "\n\n";
+        std::cout << "NEXT GROUP WILL BE INSERTED:\nJacob number(GROUP SIZE) --> " << *jacobIt << std::endl;
+        std::cout << "MAIN CHAIN--> ";
+        printVec(mainChain);
+        std::cout << "\nPEND CHAIN-->";
+        printVec(pendChain);
+        std::cout << "\nGROUP TO INSERT --> ";
+        printVec(group);
+        std::cout << "\nGROUP size--> " << size << std::endl;
+        std::cout << "Main size to find " << mainLenght << std::endl;
+        printVec(mainChain);
+        
+ */
+
 
 
 void    insertVec(std::vector<int> &mainChain, std::vector<int> &pendChain) {
     
-    // insiro o primeiro elemento de pend no inicio de mainChain
     mainChain.insert(mainChain.begin(), pendChain[0]);
     pendChain.erase(pendChain.begin());
     

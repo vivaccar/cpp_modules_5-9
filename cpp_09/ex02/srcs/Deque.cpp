@@ -132,15 +132,7 @@ void insertion(std::deque<int> &mainChain, std::deque<int> &pendChain, std::dequ
     std::deque<int>::iterator pendIt = pendChain.begin();
     int groupIdx = 1;
     for (std::deque<int>::iterator jacobIt = jacobSequence.begin(); jacobIt != jacobSequence.end(); jacobIt++)
-    {
-        std::cout << "\n\n";
-        std::cout << "NEXT GROUP WILL BE INSERTED:\nJacob number(GROUP SIZE) --> " << *jacobIt << std::endl;
-        std::cout << "MAIN CHAIN--> ";
-        printDeq(mainChain);
-        std::cout << "\nPEND CHAIN-->";
-        printDeq(mainChain);
-        
-        
+    {   
         int nbrsLeft = std::distance(pendIt, pendChain.end());
         int size = *jacobIt;
         if (nbrsLeft < size)
@@ -150,11 +142,6 @@ void insertion(std::deque<int> &mainChain, std::deque<int> &pendChain, std::dequ
         for (std::deque<int>::iterator insertionIt = group.end() - 1; insertionIt != group.begin(); insertionIt--)
             binaryInsertDeq(mainChain, *insertionIt, mainLenght);
         binaryInsertDeq(mainChain, *group.begin(), mainLenght);
-        std::cout << "\nGROUP TO INSERT --> ";
-        printDeq(group);
-        std::cout << "\nGROUP size--> " << size << std::endl;
-        std::cout << "Main size to find " << mainLenght << std::endl;
-        printDeq(mainChain);
         pendIt += size;
         groupIdx++;
     }

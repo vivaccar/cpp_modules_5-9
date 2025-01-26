@@ -56,13 +56,22 @@ void    testIsSorted2(std::deque<int> &deque) {
 int main(int ac, char **av)
 {
     (void)ac;
+    
+    clock_t vectorTime;
+    clock_t dequeTime;
     std::vector<int> vec;
     std::deque<int> deq;
     try
     {
         fillContainers(vec, deq, av);
+        std::cout << "Before: ";
+        printVec(vec);
+        vectorTime = clock();
         PmergeMe::fordJohnsonVector(vec);
+        vectorTime = (double(clock() - vectorTime) / CLOCKS_PER_SEC) * 1000000.0;
+        dequeTime = clock();
         PmergeMe::fordJohnsonDeque(deq);
+        dequeTime = (double(clock() - dequeTime) / CLOCKS_PER_SEC) * 1000000.0;
     }
     catch(const std::exception& e)
     {
@@ -70,6 +79,13 @@ int main(int ac, char **av)
         return 1;
     }
 
-    testIsSorted(vec);
-    testIsSorted2(deq);
+    std::cout << std::endl << "AFTER: ";
+    printVec(vec);
+    std::cout << std::endl << "Time to process a range of " << vec.size() <<
+    " elements with std::vector " << vectorTime << std::endl;
+    std::cout << std::endl << "Time to process a range of " << deq.size() <<
+    " elements with std::deque " << dequeTime << std::endl; 
 }
+
+//testIsSorted(vec);
+//testIsSorted2(deq);

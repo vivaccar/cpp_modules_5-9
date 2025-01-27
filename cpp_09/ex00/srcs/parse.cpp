@@ -20,7 +20,6 @@ void    BitcoinExchange::fillMap(BitcoinExchange &btcExchange, std::ifstream &bt
 
 void    BitcoinExchange::runInputFile(char *fileName, BitcoinExchange &btcExchange)
 {
-    
     (void) btcExchange;
     std::ifstream inputFile;
     inputFile.open(fileName);

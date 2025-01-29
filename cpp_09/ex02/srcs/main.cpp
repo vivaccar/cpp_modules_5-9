@@ -56,7 +56,7 @@ void    testIsSorted2(std::deque<int> &deque) {
 int main(int ac, char **av)
 {
     (void)ac;
-    
+
     clock_t vectorTime;
     clock_t dequeTime;
     std::vector<int> vec;
@@ -64,6 +64,7 @@ int main(int ac, char **av)
     try
     {
         fillContainers(vec, deq, av);
+        std::vector<int> copia(vec);
         std::cout << "Before: ";
         printVec(vec);
         vectorTime = clock();

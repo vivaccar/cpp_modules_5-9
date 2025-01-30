@@ -39,8 +39,11 @@ float BitcoinExchange::getElement(std::string &key)  const {
         key = last->first;
         return last->second;
     }
-
-    return (_btcValues.at(key));
+    std::map<std::string, float>::const_iterator it = _btcValues.lower_bound(key);
+    if (key != it->first)
+        it--;
+    key = it->first;
+    return (it->second);
 }
 
 const char *BitcoinExchange::BadInputDate::what() const throw() {

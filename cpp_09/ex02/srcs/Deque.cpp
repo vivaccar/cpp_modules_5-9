@@ -68,6 +68,8 @@ void    mergeSortDeq(std::deque<int> &mainChain, std::deque<int> &pendChain, int
     mergeDeq(mainChain, pendChain, left, mid, right);
 }
 
+// J(n) = J(n-1) + 2J(n-2);
+
 std::deque<int>    Jacobsthal(size_t size)
 {
     std::deque<int> jacobSequence;

@@ -57,6 +57,11 @@ int main(int ac, char **av)
 {
     (void)ac;
 
+    if (ac < 2)
+    {
+        std::cout << "./PmergeMe \"[Numbers list]\"" << std::endl;
+        return 0;
+    }
     clock_t vectorTime;
     clock_t dequeTime;
     std::vector<int> vec;
@@ -83,9 +88,9 @@ int main(int ac, char **av)
     std::cout << std::endl << "AFTER: ";
     printVec(vec);
     std::cout << std::endl << "Time to process a range of " << vec.size() <<
-    " elements with std::vector " << vectorTime << std::endl;
+    " elements with std::vector " << vectorTime << " us" << std::endl;
     std::cout << std::endl << "Time to process a range of " << deq.size() <<
-    " elements with std::deque " << dequeTime << std::endl; 
+    " elements with std::deque " << dequeTime << " us" << std::endl; 
 }
 
 //testIsSorted(vec);

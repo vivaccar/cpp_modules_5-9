@@ -120,39 +120,6 @@ float    checkValue(std::string &value)
     return (static_cast<float>(valueInt));
 }
 
-std::string   decreaseDate(std::string &date)
-{
-    int year = std::atoi(date.substr(0, 4).c_str());
-    int month = std::atoi(date.substr(5, 2).c_str());
-    int day = std::atoi(date.substr(8, 2).c_str());
-    std::ostringstream oss;
-
-
-    if (day > 1)
-        day--;
-    else
-    {
-        if (month > 1)
-        {
-            month--;
-            if (month == 4 || month == 6|| month == 9 || month == 11)
-                day = 30;
-            else if (month == 2)
-                day = 28;
-            else
-                day = 31;
-        }
-        else
-        {
-            year--;
-            day = 31;
-            month = 12;
-        }
-    }
-    oss << year << "-" << std::setw(2) << std::setfill('0') 
-    << month << "-" << std::setw(2) << std::setfill('0') << day;
-    return (oss.str());
-}
 
 bool    emptyLine(std::string &line)
 {

@@ -43,18 +43,7 @@ void    BitcoinExchange::runInputFile(char *fileName, BitcoinExchange &btcExchan
             std::string value = line.substr(pos + 3);
             float qt = checkValue(value);
             float n = 0;
-            while (true)
-            {
-                try
-                {
-                    n = btcExchange.getElement(date) * qt;
-                    break ;
-                }
-                catch(const std::out_of_range& e)
-                {
-                    date = decreaseDate(date);
-                }
-            }
+            n = btcExchange.getElement(date) * qt;
             std::cout << date << " => " << value << " = " << n << std::endl;
         }
         catch(const std::exception& e)

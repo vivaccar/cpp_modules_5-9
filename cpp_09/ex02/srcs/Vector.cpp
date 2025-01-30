@@ -46,8 +46,7 @@ void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left
         }
         mainIdx++;
     }
-
-    // Copyremaining elements from the left side
+    // Copyremaining elements from the right side
     while (leftIdx < leftMain.size())
     {
         mainChain[mainIdx] = leftMain[leftIdx];
@@ -55,7 +54,6 @@ void mergeVec(std::vector<int> &mainChain, std::vector<int> &pendChain, int left
         leftIdx++;
         mainIdx++;
     }
-
     // Copyremaining elements from the right side
     while (rightIdx < rightMain.size())
     {
